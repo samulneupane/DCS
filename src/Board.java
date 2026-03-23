@@ -15,5 +15,12 @@ public class Board {
         board = new Piece[8][8]; // initialize empty 8x8 board
 	capturedPieces = new ArrayList<>(); // initialize empty list
     }
+    
+    // gives the piece at a specific location
+    public Piece getPiece(Position pos) {
+        int row = pos.getRow();
+        int col = pos.getColumn();
+        return board[row][col];
+    }
 }
 

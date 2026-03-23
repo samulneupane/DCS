@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-//board class
+//Board class
 public class Board {
 
     // 8x8 board matrix to hold pieces
@@ -12,9 +12,19 @@ public class Board {
     
     // Constructor
     public Board() {
-        board = new Piece[8][8]; // initialize empty 8x8 board
+    board = new Piece[8][8]; // initialize empty 8x8 board
 	capturedPieces = new ArrayList<>(); // initialize empty list
+    initializeBoard(); // set up initial pieces
     }
+    
+    private void initializeBoard(){
+        //only pawns for quick setup
+        for (int i = 0; i < 8; i++) {
+            board[1][i] = new Pawn("white", new Position(1, i));
+            board[6][i] = new Pawn("black", new Position(6, i));
+        }
+    }
+    
     
     // gives the piece at a specific location
     public Piece getPiece(Position pos) {

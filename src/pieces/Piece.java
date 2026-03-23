@@ -26,6 +26,9 @@ public abstract class Piece {
     public void setPosition(Position position) {
         this.position = position;
     }
+    public abstract List<Position> possibleMoves(Board board);
+
+    public abstract String getSymbol();
 
 }
 

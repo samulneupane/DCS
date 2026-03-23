@@ -2,8 +2,12 @@ package pieces;
 
 import board.Board;
 import board.Position;
-import enums.Color;
 import java.util.List;
+
+enum Color {
+    WHITE,
+    BLACK
+}
 
 public abstract class Piece {
     protected Color color;
@@ -12,9 +16,16 @@ public abstract class Piece {
     public Piece(Color color, Position position) {
         this.color = color;
         this.position = position;
-    
     }
-}
+    public Color getColor(){
+        return color;
+    }
+    public Position getPosition(){
+        return position;
+    }
+    public void setPosition(Position position) {
+        this.position = position;
+    }
 
 }
 

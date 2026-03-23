@@ -10,6 +10,9 @@ public class Pawn extends Piece {
     public Pawn(Color color, Position position) {
         super(color, position); // Show the position the pawn is on and the color it is
     }
+    public List<Position> possibleMoves(Board board) {
+        List <Postion> moves = new ArrayList<>()
+    } )
 
 }
 

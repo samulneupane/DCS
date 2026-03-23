@@ -11,5 +11,10 @@ public class Pawn extends Piece {
         super(color, position); // Show the position the pawn is on and the color it is
     }
     public List<Position> possibleMoves(Board board) {
-        List <Postion> moves = new ArrayList<>()
-    } )
+        List <Postion> moves = new ArrayList<>();
+
+        int direction = (color == color.WHITE) ? -1 : 1;
+        int row = position.getRow();
+        int col = position.getCol();
+
+    }

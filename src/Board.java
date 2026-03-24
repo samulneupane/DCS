@@ -147,13 +147,41 @@ public boolean isCheckmate(String color) {
     if (!isCheck(color)) {
         return false;
     }
+
     //iterate over all pieces of the given color
     for (int row = 0; row < 8; row++) {
         for (int col = 0; col < 8; col++) {
             Piece p = board[row][col];
             if (p != null && p.getColor().equals(color)) {
                 List<Position> moves = p.possibleMoves(board);
+                
+                //trying each move temporarily
+                for (Position to : moves) {
+                    Position from = new Position(row, col);
+                    Piece captured = getPiece(to);
+                    
+                    // Make the move
+                    board[to.getRow()][to.getColumn()] = p;
+                    board[row][col] = null;
+                    p.setPosition(to.toString());
 
+                    // Check if king is still in check
+                    boolean stillInCheck = isCheck(color);
+
+                    // Undo the move
+                    board[row][col] = p;
+                    board[to.getRow()][to.getColumn()] = captured;
+                    p.setPosition(from.toString());
+
+                    if (!stillInCheck) {
+                        return false; // Found at least one move that escapes check
+                    }
+                }
+            }
+        }
+    }
+
+   
 }
 
 }

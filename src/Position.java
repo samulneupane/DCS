@@ -17,18 +17,7 @@ public class Position {
         return column;
     }
 
-    // Setters
-    public void setRow(int row) {
-        this.row = row;
-    }
-
-    public void setColumn(int column) {
-        this.column = column;
-    }
-
-    public void setColumn(int column) {
-        this.column = column;
-    }
+    
 
     // Converting position into chess notation
     @Override

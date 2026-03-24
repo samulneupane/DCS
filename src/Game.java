@@ -1,67 +1,73 @@
-// src/Player.java
 package src;
 
-import java.util.Scanner;
+public class Game {
 
-public class Player {
-
-    private String color;         // "white" or "black"
-    private Board board;          // reference to the board
-    private Scanner scanner;
+    private Board board;          // The chessboard
+    private Player whitePlayer;   // White player
+    private Player blackPlayer;   // Black player
+    private String currentTurn;   // "white" or "black"
 
     // Constructor
-    public Player(String color, Board board) {
-        this.color = color.toLowerCase();
-        this.board = board;
-        this.scanner = new Scanner(System.in);
+    public Game(Player white, Player black) {
+        this.board = new Board();
+        this.whitePlayer = white;
+        this.blackPlayer = black;
+        this.currentTurn = "white"; // White starts first
     }
 
-    public String getColor() {
-        return color;
+    // Initialize the game
+    public void start() {
+        board.initialize(); // Place all pieces in starting positions
+        System.out.println("Game started!");
+        board.display();    // Show initial board
     }
 
-    /**
-     * Prompts the player to make a move and executes it on the board.
-     * Validates input and move legality.
-     */
-    public void makeMove(Board board) {
-        boolean validMove = false;
-
-        while (!validMove) {
-            System.out.println(color + "'s move (e.g., E2 E4): ");
-            String input = scanner.nextLine().trim();
-
-            // 1️⃣ Validate format
-            if (!utils.Utils.isValidMoveFormat(input)) {
-                System.out.println("Invalid format! Use something like E2 E4.");
-                continue;
-            }
-
-            // 2️⃣ Convert notation to Position objects
-            String[] parts = input.split("\\s+");
-            Position from = utils.Utils.notationToPosition(parts[0]);
-            Position to = utils.Utils.notationToPosition(parts[1]);
-
-            // 3️⃣ Check if there's a piece at "from" and belongs to the player
-            Piece piece = board.getPiece(from);
-            if (piece == null) {
-                System.out.println("No piece at " + parts[0]);
-                continue;
-            }
-            if (!piece.getColor().equals(color)) {
-                System.out.println("You can only move your own pieces!");
-                continue;
-            }
-
-            // 4️⃣ Check if move is valid for the piece
-            if (!piece.possibleMoves(board).contains(to)) {
-                System.out.println("Invalid move for that piece.");
-                continue;
-            }
-
-            // 5️⃣ Execute move
-            board.movePiece(from, to);
-            validMove = true;
+    // End the game and declare winner or draw
+    public void end(String winner) {
+        System.out.println("Game Over!");
+        if (winner == null) {
+            System.out.println("It's a draw!");
+        } else {
+            System.out.println("Winner: " + winner);
         }
+    }
+
+    // Main game loop
+    public void play() {
+        boolean gameOver = false;
+
+        while (!gameOver) {
+            board.display();
+            System.out.println(currentTurn + "'s turn.");
+
+            Player currentPlayer = currentTurn.equals("white") ? whitePlayer : blackPlayer;
+            currentPlayer.makeMove(board); // Player makes a move
+
+            // Check if current player is in checkmate
+            if (board.isCheckmate(currentTurn)) {
+                end(currentTurn.equals("white") ? "black" : "white");
+                gameOver = true;
+            } 
+            // Optional: check for stalemate
+            else if (board.isStalemate(currentTurn)) {
+                end(null);
+                gameOver = true;
+            } 
+            else {
+                // Switch turns
+                currentTurn = currentTurn.equals("white") ? "black" : "white";
+            }
+        }
+    }
+
+    // Main method to run the game
+    public static void main(String[] args) {
+        Board board = new Board();
+        Player white = new Player("white", board);
+        Player black = new Player("black", board);
+
+        Game game = new Game(white, black);
+        game.start();
+        game.play();
     }
 }

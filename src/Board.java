@@ -18,7 +18,7 @@ public class Board {
     }
     
     private void initializeBoard() {
-        // --- White pieces ---
+        // White pieces 
         board[0][0] = new Rook("white", new Position(0, 0));
         board[0][1] = new Knight("white", new Position(0, 1));
         board[0][2] = new Bishop("white", new Position(0, 2));
@@ -30,6 +30,20 @@ public class Board {
     
         for (int i = 0; i < 8; i++) {
             board[1][i] = new Pawn("white", new Position(1, i));
+        }
+    
+        // Black pieces
+        board[7][0] = new Rook("black", new Position(7, 0));
+        board[7][1] = new Knight("black", new Position(7, 1));
+        board[7][2] = new Bishop("black", new Position(7, 2));
+        board[7][3] = new Queen("black", new Position(7, 3));
+        board[7][4] = new King("black", new Position(7, 4));
+        board[7][5] = new Bishop("black", new Position(7, 5));
+        board[7][6] = new Knight("black", new Position(7, 6));
+        board[7][7] = new Rook("black", new Position(7, 7));
+    
+        for (int i = 0; i < 8; i++) {
+            board[6][i] = new Pawn("black", new Position(6, i));
         }
     }
     

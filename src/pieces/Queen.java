@@ -17,7 +17,7 @@ public class Queen extends Piece {
         List<Position> moves = new ArrayList<>();
 
         int row = position.getRow();
-        int col = position.getCol();
+        int col = position.getColumn();
         int[][] directions = {
             {-1, 0}, {1, 0}, {0, -1}, {0, 1},
             {-1, -1}, {-1, 1}, {1, -1}, {1, 1}

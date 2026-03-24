@@ -5,14 +5,11 @@ private Piece piece;
 }
 
 public class Player{
- private string[] Color;
+ private char color;
  private List<Piece> piecesRemain;
-
-  color[0]="B";
-  color[1]="W";
  
 //modifying pieces remaining 
- public List<Piece> getPiecesRemain() { return piecesRemain; };
+ public List<Piece> getPiecesRemain() { return piecesRemain; }
   public void addPiece(Piece p) { piecesRemain.add(p);}
   public void removePiece(Piece p) { piecesRemain.remove(p); }
 

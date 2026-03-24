@@ -99,7 +99,10 @@ public class Board {
 
     return true;
 }
-    public boolean isCheck(String color) {
+    
+
+
+public boolean isCheck(String color) {
     // Find the king of the given color
     Position kingPos = null;
     for (int row = 0; row < 8; row++) {
@@ -117,7 +120,25 @@ public class Board {
         System.out.println("Error: King not found for color " + color);
         return false;
     }
+// Check all opponent pieces if they can move to king's position
+String opponentColor = color.equals("white") ? "black" : "white";
 
+for (int row = 0; row < 8; row++) {
+    for (int col = 0; col < 8; col++) {
+        Piece p = board[row][col];
+        if (p != null && p.getColor().equals(opponentColor)) {
+            List<Position> moves = p.possibleMoves(board);
+            for (Position pos : moves) {
+                if (pos.equals(kingPos)) {
+                    return true; // King is under attack
+                }
+            }
+        }
+    }
 
+}
+return false; // King is safe
+
+}
 }
 

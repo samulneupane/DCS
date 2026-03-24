@@ -36,7 +36,7 @@ public class Player{
  boolean valid = false;
  List<Position> possibleMoves = p.possibleMoves(board);
  for (int i=0;i<possibleMoves.size();i++){
-     if (possibleMoves.get(i).getRow()==to.getRow() && possibleMoves.get(i).getCol()==to.getCol()) {
+     if (possibleMoves.get(i).getRow()==to.getRow() && possibleMoves.get(i).getColumn()==to.getColumn()) {
        valid = true; 
       }
     }

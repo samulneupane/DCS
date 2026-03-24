@@ -52,6 +52,13 @@ public class Board {
     public Piece getPiece(Position pos) {
         int row = pos.getRow();
         int col = pos.getColumn();
+        
+        // Check if position is within bounds
+        if (row < 0 || row >= 8 || col < 0 || col >= 8) {
+        System.out.println("Invalid position: " + pos.toString());
+        return null;
+     }
+        //return the piece at the given position
         return board[row][col];
     }
 

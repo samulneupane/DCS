@@ -18,7 +18,12 @@ public class Game{
         board = new Board();
         board.initialize();
     }
-  public string end(){
-    
+  public void end(){
+    if( isCheckmate(1){
+      System.out.print("Black Wins");
+    }
+    else{
+     System.out.print("White Wins");
   }
+}
 }

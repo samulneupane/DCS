@@ -66,3 +66,8 @@ for (int r = row - 1; r >= 0; r--) {
 
         return moves;
     }
+    @Override
+    public String getSymbol() {
+        return color == Color.WHITE ? "wr" : "br";
+    }
+}

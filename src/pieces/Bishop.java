@@ -41,3 +41,14 @@ public class Bishop extends Piece {
                 break;
             }
         }
+        for (int r = row + 1, c = col - 1; r < 8 && c >= 0; r++, c--) {
+            Position p = new Position(r, c);
+            if (board.getPiece(p) == null) {
+                moves.add(p);
+            } else {
+                if (board.getPiece(p).getColor() != color) {
+                    moves.add(p);
+                }
+                break;
+            }
+        }

@@ -15,7 +15,7 @@ public class Pawn extends Piece {
 
         int direction = (color == color.WHITE) ? -1 : 1;
         int row = position.getRow();
-        int col = position.getCol();
+        int col = position.getColumn();
 
         Position oneStep = new Position(row + direction, col);
           if (board.isInsideBoard(oneStep) && board.getPiece(oneStep) == null) {

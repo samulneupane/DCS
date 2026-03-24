@@ -92,7 +92,7 @@ public class Board {
             System.out.println(targetPiece.getColor() + " " + targetPiece.getType() + " captured!");
         }
 
-    // Move the piece
+    //finally Moving the piece
     board[to.getRow()][to.getColumn()] = movingPiece;
     board[from.getRow()][from.getColumn()] = null;
     movingPiece.setPosition(to.toString()); // update piece's internal position

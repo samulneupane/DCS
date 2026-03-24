@@ -52,3 +52,17 @@ for (int r = row - 1; r >= 0; r--) {
                 break;
             }
         }
+        for (int c = col + 1; c < 8; c++) {
+            Position p = new Position(row, c);
+            if (board.getPiece(p) == null) {
+                moves.add(p);
+            } else {
+                if (board.getPiece(p).getColor() != color) {
+                    moves.add(p);
+                }
+                break;
+            }
+        }
+
+        return moves;
+    }

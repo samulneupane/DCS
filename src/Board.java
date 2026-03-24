@@ -185,5 +185,35 @@ public boolean isCheckmate(String color) {
    
 }
 
+// src/Board.java
+public void display() {
+    System.out.println(); // blank line for spacing
+    // Print each row from 8 down to 1 (standard chess view)
+    for (int row = 7; row >= 0; row--) {
+        // Print the rank number on the left
+        System.out.print((row + 1) + " ");
+
+        for (int col = 0; col < 8; col++) {
+            Piece p = board[row][col];
+            if (p != null) {
+                // Print piece as "wP", "bQ", etc.
+                String colorChar = p.getColor().substring(0, 1); // 'w' or 'b'
+                String typeChar = p.getType().substring(0, 1).toUpperCase(); // 'P', 'R', 'N', etc.
+                System.out.print(colorChar + typeChar + " ");
+            } else {
+                // Empty square
+                System.out.print("## ");
+            }
+        }
+        System.out.println(); // next row
+    }
+
+    // Print file letters at bottom
+    System.out.print("  "); // indent for alignment
+    for (char c = 'A'; c <= 'H'; c++) {
+        System.out.print(c + "  ");
+    }
+    System.out.println(); // final newline
+}
 }
 

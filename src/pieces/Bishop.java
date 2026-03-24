@@ -63,3 +63,11 @@ public class Bishop extends Piece {
                 break;
             }
         }
+        return moves;
+    }
+
+    @Override
+    public String getSymbol() {
+        return color == Color.WHITE ? "wb" : "bb";
+    }
+}

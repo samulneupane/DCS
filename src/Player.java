@@ -13,15 +13,15 @@ public class Player{
   public void addPiece(Piece p) { piecesRemain.add(p);}
   public void removePiece(Piece p) { piecesRemain.remove(p); }
 
- public int[] makeMove(int[] f,int[] t, Piece p){
+ public int[] makeMove(position fr, position To, Piece p){
  boolean valid = false;
  for (int i=0;i<possibleMoves.size();i++){
-     if (possibleMoves.get(i)[0]==t[0] && possibleMoves.get(i)[1]==t[1]) {
+     if (possibleMoves.get(i)[0]==To[0] && possibleMoves.get(i)[1]==To[1]) {
        valid = true; 
       }
     }
  if (valid){
-   movePiece(f,t);
+   movePiece(fr,To);
    }
  return p.getPosition();
  }

@@ -31,9 +31,20 @@ public class Position {
     }
 
     // Converting position into chess notation
+    @Override
     public String toString() {
         char file = (char) ('A' + column); // column → A-H
         int rank = row + 1;               // row → 1-8
         return "" + file + rank;
+    }
+
+    // Compare two positions
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (!(obj instanceof Position)) return false;
+
+        Position other = (Position) obj;
+        return this.row == other.row && this.column == other.column;
     }
 }

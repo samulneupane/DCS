@@ -86,9 +86,10 @@ public class Board {
             return false;
         }
 
+        // Capture opponent piece if present
         if (targetPiece != null) {
-        // Capture the piece
             capturedPieces.add(targetPiece);
+            System.out.println(targetPiece.getColor() + " " + targetPiece.getType() + " captured!");
         }
 
     // Move the piece

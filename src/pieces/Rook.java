@@ -29,3 +29,26 @@ for (int r = row - 1; r >= 0; r--) {
                 break;
             }
         }
+        for (int r = row + 1; r < 8; r++) {
+            Position p = new Position(r, col);
+            if (board.getPiece(p) == null) {
+                moves.add(p);
+            } else {
+                if (board.getPiece(p).getColor() != color) {
+                    moves.add(p);
+                }
+                break;
+            }
+        }
+
+        for (int c = col - 1; c >= 0; c--) {
+            Position p = new Position(row, c);
+            if (board.getPiece(p) == null) {
+                moves.add(p);
+            } else {
+                if (board.getPiece(p).getColor() != color) {
+                    moves.add(p);
+                }
+                break;
+            }
+        }

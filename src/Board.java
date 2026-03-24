@@ -99,5 +99,25 @@ public class Board {
 
     return true;
 }
+    public boolean isCheck(String color) {
+    // Find the king of the given color
+    Position kingPos = null;
+    for (int row = 0; row < 8; row++) {
+        for (int col = 0; col < 8; col++) {
+            Piece p = board[row][col];
+            if (p != null && p.getType().equals("King") && p.getColor().equals(color)) {
+                kingPos = new Position(row, col);
+                break;
+            }
+        }
+        if (kingPos != null) break;
+    }
+
+    if (kingPos == null) {
+        System.out.println("Error: King not found for color " + color);
+        return false;
+    }
+
+
 }
 

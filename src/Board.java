@@ -140,5 +140,14 @@ for (int row = 0; row < 8; row++) {
 return false; // King is safe
 
 }
+
+
+public boolean isCheckmate(String color) {
+    //if not in check, cannot be checkmate
+    if (!isCheck(color)) {
+        return false;
+    }
+    
+
 }
 

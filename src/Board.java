@@ -180,7 +180,8 @@ public boolean isCheckmate(String color) {
             }
         }
     }
-
+    //no moves can remove check → checkmate
+    return true;
    
 }
 

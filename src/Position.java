@@ -25,4 +25,15 @@ public class Position {
     public void setColumn(int column) {
         this.column = column;
     }
+
+    public void setColumn(int column) {
+        this.column = column;
+    }
+
+    // Converting position into chess notation
+    public String toString() {
+        char file = (char) ('A' + column); // column → A-H
+        int rank = row + 1;               // row → 1-8
+        return "" + file + rank;
+    }
 }

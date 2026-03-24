@@ -1,9 +1,3 @@
-public class makeMove{
-private int[] moveFrom;
- private int[] moveTo;
-private Piece piece;
-}
-
 
 public class Color {
     private char color;

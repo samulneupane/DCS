@@ -17,7 +17,7 @@ public class Bishop extends Piece {
         List<Position> moves = new ArrayList<>();
 
         int row = position.getRow();
-        int col = position.getCol();
+        int col = position.getColumn();
 
         for (int r = row - 1, c = col - 1; r >= 0 && c >= 0; r--, c--) {
             Position p = new Position(r, c);

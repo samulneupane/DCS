@@ -22,7 +22,7 @@ public class Knight extends Piece {
             {2, -1}, {2, 1}
         };
         int row = position.getRow();
-        int col = position.getCol();
+        int col = position.getColumn();
 
         for (int[] offset : offsets) {
             Position p = new Position(row + offset[0], col + offset[1]);

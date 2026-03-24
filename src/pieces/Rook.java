@@ -17,7 +17,7 @@ public class Rook extends Piece {
         List<Position> moves = new ArrayList<>();
 
         int row = position.getRow();
-        int col = position.getCol();
+        int col = position.getColumn();
 for (int r = row - 1; r >= 0; r--) {
             Position p = new Position(r, col);
             if (board.getPiece(p) == null) {

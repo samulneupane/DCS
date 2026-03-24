@@ -23,7 +23,7 @@ public class King extends Piece {
         };
 
         int row = position.getRow();
-        int col = position.getCol();
+        int col = position.getColumn();
 
         for (int[] offset : offsets) {
             Position p = new Position(row + offset[0], col + offset[1]);

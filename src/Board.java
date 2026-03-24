@@ -147,7 +147,14 @@ public boolean isCheckmate(String color) {
     if (!isCheck(color)) {
         return false;
     }
-    
+    //iterate over all pieces of the given color
+    for (int row = 0; row < 8; row++) {
+        for (int col = 0; col < 8; col++) {
+            Piece p = board[row][col];
+            if (p != null && p.getColor().equals(color)) {
+                List<Position> moves = p.possibleMoves(board);
+
+}
 
 }
 

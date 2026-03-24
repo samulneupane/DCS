@@ -1,16 +1,39 @@
 public class Position {
     private int row;
-    private int col;
+    private int column;
 
-    public Position(int row, int col) {
+    //constructor
+    public Position(int row, int column) {
         this.row = row;
-        this.col = col;
+        this.column = column;
     }
 
-    public int getRow() { return row; }
-    public int getCol() { return col; }
+    //getters
+    public int getRow() {
+        return row;
+    }
+
+    public int getColumn() {
+        return column;
+    }
+
     
-    public void setRow(int row) { this.row = row; }
-    public void setCol(int col) { this.col = col; }
-}
+
+    // Converting position into chess notation
+    @Override
+    public String toString() {
+        char file = (char) ('A' + column); // column → A-H
+        int rank = row + 1;               // row → 1-8
+        return "" + file + rank;
+    }
+
+    // Compare two positions
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (!(obj instanceof Position)) return false;
+
+        Position other = (Position) obj;
+        return this.row == other.row && this.column == other.column;
+    }
 }

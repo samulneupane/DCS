@@ -32,7 +32,7 @@ public class Player{
   public void addPiece(Piece p) { piecesRemain.add(p);}
   public void removePiece(Piece p) { piecesRemain.remove(p); }
 
- public Position makeMove(Position from, Position to, Piece p){
+ public Position makeMove(Position from, Position to, Piece p, Board board){
  boolean valid = false;
  List<Position> possibleMoves = p.possibleMoves(Board);
  for (int i=0;i<possibleMoves.size();i++){

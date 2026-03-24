@@ -4,6 +4,26 @@ private int[] moveFrom;
 private Piece piece;
 }
 
+
+public class Color {
+    private char color;
+    private int turn; // 1 = White, 2 = Black
+
+    public Color(char color, int turn) {
+        this.color = color;
+        this.turn = turn;
+    }
+
+    public char getColor() { return color; }
+    public int getTurn() { return turn; }
+
+    public void setColor(char color) { this.color = color; }
+    public void setTurn(int turn) { this.turn = turn; }
+
+}
+
+
+
 public class Player{
  private char color;
  private List<Piece> piecesRemain;

@@ -64,19 +64,26 @@ public class Board {
 
     //to move a piece
     public boolean movePiece(Position from, Position to) {
-    Piece movingPiece = getPiece(from);
-    
-    if (movingPiece == null) {
-        // No piece at source
+        
+        // Checking bounds
+        if (!isValidPosition(from) || !isValidPosition(to)) {
+        System.out.println("Invalid move: position out of bounds.");
         return false;
     }
 
-    Piece targetPiece = getPiece(to);
+        Piece movingPiece = getPiece(from);
     
-    if (targetPiece != null) {
+        if (movingPiece == null) {
+        // No piece at source
+            return false;
+        }
+
+        Piece targetPiece = getPiece(to);
+    
+        if (targetPiece != null) {
         // Capture the piece
-        capturedPieces.add(targetPiece);
-    }
+            capturedPieces.add(targetPiece);
+        }
 
     // Move the piece
     board[to.getRow()][to.getColumn()] = movingPiece;

@@ -21,3 +21,11 @@ public class Pawn extends Piece {
           if (board.isInsideBoard(oneStep) && board.getPiece(oneStep) == null) {
             moves.add(oneStep);
     }
+    return moves;
+    }
+    @Override
+    public String getSymbol() {
+        return color == Color.WHITE ? "wp" : "bp";
+    }
+ }    
+

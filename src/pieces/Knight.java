@@ -15,4 +15,12 @@ public class Knight extends Piece {
     public List<Position> possibleMoves(Board board) {
         List<Position> moves = new ArrayList<>();
 
+        int[][] offsets = {
+            {-2, -1}, {-2, 1},
+            {-1, -2}, {-1, 2},
+            {1, -2}, {1, 2},
+            {2, -1}, {2, 1}
+        };
+}
+
 }

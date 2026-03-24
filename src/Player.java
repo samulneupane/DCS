@@ -21,6 +21,11 @@ public class Color {
 public class Player{
  private Color color;
  private List<Piece> piecesRemain;
+
+    public Player(Color color) {
+    this.color = color;
+    this.piecesRemain = new ArrayList<>();
+}
  
 //modifying pieces remaining 
  public List<Piece> getPiecesRemain() { return piecesRemain; }
@@ -31,12 +36,12 @@ public class Player{
  boolean valid = false;
  List<Position> possibleMoves = p.possibleMoves(board);
  for (int i=0;i<possibleMoves.size();i++){
-     if (possibleMoves.get(i).getRow()==to.getRow() && possibleMoves.get(i).getCol()==to.getCol() {
+     if (possibleMoves.get(i).getRow()==to.getRow() && possibleMoves.get(i).getCol()==to.getCol()) {
        valid = true; 
       }
     }
  if (valid){
-   movePiece(from,to);
+   board.movePiece(from,to);
    }
  return p.getPosition();
  }

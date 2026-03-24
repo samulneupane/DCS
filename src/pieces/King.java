@@ -25,3 +25,12 @@ public class Knight extends Piece {
 
         int row = position.getRow();
         int col = position.getCol();
+
+        for (int[] offset : offsets) {
+            Position p = new Position(row + offset[0], col + offset[1]);
+            if (board.isInsideBoard(p)) {
+                if (board.getPiece(p) == null || board.getPiece(p).getColor() != color) {
+                    moves.add(p);
+                }
+            }
+        }

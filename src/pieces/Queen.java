@@ -45,3 +45,8 @@ public class Queen extends Piece {
 
         return moves;
     }
+@Override
+    public String getSymbol() {
+        return color == Color.WHITE ? "wq" : "bq";
+    }
+}

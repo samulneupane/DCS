@@ -38,3 +38,10 @@ public class Queen extends Piece {
                     }
                     break;
                 }
+                r += dir[0];
+                c += dir[1];
+            }
+        }
+
+        return moves;
+    }

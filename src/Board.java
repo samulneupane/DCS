@@ -74,12 +74,18 @@ public class Board {
         Piece movingPiece = getPiece(from);
     
         if (movingPiece == null) {
-        // No piece at source
+            System.out.println("Invalid move: no piece at " + from.toString());
             return false;
         }
 
         Piece targetPiece = getPiece(to);
-    
+
+        // Prevent capturing your own piece
+        if (targetPiece != null && targetPiece.getColor().equals(movingPiece.getColor())) {
+            System.out.println("Invalid move: cannot capture your own piece.");
+            return false;
+        }
+
         if (targetPiece != null) {
         // Capture the piece
             capturedPieces.add(targetPiece);

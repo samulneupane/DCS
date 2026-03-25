@@ -1,44 +1,40 @@
 package pieces;
 
-import src.Board;
-import src.Position;
 import java.util.ArrayList;
 import java.util.List;
 
-public class King extends Piece {
+import Position;
 
-    public King(String color, Position position) {
-        super(color, position);
+
+public class Knight extends Piece {
+
+    public Knight(boolean isWhite, Position position) {
+        super(isWhite, position);
     }
 
     @Override
-    public List<Position> possibleMoves(Board board) {
+    public List<Position> possibleMoves() {
         List<Position> moves = new ArrayList<>();
 
         int[][] offsets = {
-            {-1, -1}, {-1, 0}, {-1, 1},
-            {0, -1},           {0, 1},
-            {1, -1},  {1, 0},  {1, 1}
+            { -2, -1 }, { -2,  1 },
+            { -1, -2 }, { -1,  2 },
+            {  1, -2 }, {  1,  2 },
+            {  2, -1 }, {  2,  1 }
         };
 
         int row = position.getRow();
-        int col = position.getColumn();
+        int col = position.getCol();
 
         for (int[] offset : offsets) {
-            Position p = new Position(row + offset[0], col + offset[1]);
+            int newRow = row + offset[0];
+            int newCol = col + offset[1];
 
-            if (board.isInsideBoard(p)) {
-                if (board.getPiece(p) == null || !board.getPiece(p).getColor().equals(this.color)) {
-                    moves.add(p);
-                }
+            if (newRow >= 0 && newRow < 8 && newCol >= 0 && newCol < 8) {
+                moves.add(new Position(newRow, newCol));
             }
         }
 
         return moves;
-    }
-
-    @Override
-    public String getSymbol() {
-        return color.equals("white") ? "wK" : "bK";
     }
 }

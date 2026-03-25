@@ -5,9 +5,9 @@ import src.Position;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Knight extends Piece {
+public class King extends Piece {
 
-    public Knight(String color, Position position) {
+    public King(String color, Position position) {
         super(color, position);
     }
 
@@ -16,10 +16,9 @@ public class Knight extends Piece {
         List<Position> moves = new ArrayList<>();
 
         int[][] offsets = {
-            {-2, -1}, {-2, 1},
-            {-1, -2}, {-1, 2},
-            {1, -2}, {1, 2},
-            {2, -1}, {2, 1}
+            {-1, -1}, {-1, 0}, {-1, 1},
+            {0, -1},           {0, 1},
+            {1, -1},  {1, 0},  {1, 1}
         };
 
         int row = position.getRow();
@@ -40,6 +39,6 @@ public class Knight extends Piece {
 
     @Override
     public String getSymbol() {
-        return color.equals("white") ? "wN" : "bN";
+        return color.equals("white") ? "wK" : "bK";
     }
 }

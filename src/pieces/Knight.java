@@ -1,14 +1,13 @@
- package pieces;
+package pieces;
 
-import board.Board;
-import board.Position;
-import enums.Color;
+import src.Board;
+import src.Position;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Knight extends Piece {
+public class King extends Piece {
 
-    public Knight(Color color, Position position) {
+    public King(String color, Position position) {
         super(color, position);
     }
 
@@ -17,20 +16,19 @@ public class Knight extends Piece {
         List<Position> moves = new ArrayList<>();
 
         int[][] offsets = {
-            {-2, -1}, {-2, 1},
-            {-1, -2}, {-1, 2},
-            {1, -2}, {1, 2},
-            {2, -1}, {2, 1}
+            {-1, -1}, {-1, 0}, {-1, 1},
+            {0, -1},           {0, 1},
+            {1, -1},  {1, 0},  {1, 1}
         };
 
         int row = position.getRow();
         int col = position.getColumn();
 
         for (int[] offset : offsets) {
-            Position p = new Position(row + offset[0], column + offset[1]);
+            Position p = new Position(row + offset[0], col + offset[1]);
 
             if (board.isInsideBoard(p)) {
-                if (board.getPiece(p) == null || board.getPiece(p).getColor() != color) {
+                if (board.getPiece(p) == null || !board.getPiece(p).getColor().equals(this.color)) {
                     moves.add(p);
                 }
             }
@@ -41,6 +39,6 @@ public class Knight extends Piece {
 
     @Override
     public String getSymbol() {
-        return color == Color.WHITE ? "wn" : "bn";
+        return color.equals("white") ? "wK" : "bK";
     }
 }

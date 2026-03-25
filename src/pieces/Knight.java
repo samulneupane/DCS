@@ -3,9 +3,6 @@ package pieces;
 import java.util.ArrayList;
 import java.util.List;
 
-import Position;
-
-
 public class Knight extends Piece {
 
     public Knight(boolean isWhite, Position position) {
@@ -37,4 +34,3 @@ public class Knight extends Piece {
 
         return moves;
     }
-}

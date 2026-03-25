@@ -2,27 +2,13 @@ package pieces;
 
 import Position;
 
-public abstract class Piece {
+public class Pawn extends Piece {
 
-    protected boolean isWhite;
-    protected Position position;
-
-    public Piece(boolean isWhite, Position position) {
-        this.isWhite = isWhite;
-        this.position = position;
+    public Pawn(boolean isWhite, Position position) {
+        super(isWhite, position);
     }
 
-    public boolean isWhite() {
-        return isWhite;
+    public String getSymbol() {
+        return isWhite ? "wp" : "bp";
     }
-
-    public Position getPosition() {
-        return position;
-    }
-
-    public void setPosition(Position position) {
-        this.position = position;
-    }
-
-    public abstract String getSymbol();
 }

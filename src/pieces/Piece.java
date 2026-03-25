@@ -1,21 +1,19 @@
 package pieces;
 
-import src.Board;
-import src.Position;
-import java.util.List;
+import Position;
 
 public abstract class Piece {
-    protected String color;   // "white" or "black"
+
+    protected boolean isWhite;
     protected Position position;
 
-    public Piece(String color, Position position) {
-        this.color = color;
+    public Piece(boolean isWhite, Position position) {
+        this.isWhite = isWhite;
         this.position = position;
     }
 
-    // Getters and setters
-    public String getColor() {
-        return color;
+    public boolean isWhite() {
+        return isWhite;
     }
 
     public Position getPosition() {
@@ -26,9 +24,5 @@ public abstract class Piece {
         this.position = position;
     }
 
-    // Returns list of possible moves for this piece
-    public abstract List<Position> possibleMoves(Board board);
-
-    // Returns the symbol to display on the board
     public abstract String getSymbol();
 }

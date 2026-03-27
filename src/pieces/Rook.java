@@ -2,7 +2,6 @@ package pieces;
 
 import utils.Board;
 import utils.Position;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.awt.Color;
@@ -19,56 +18,72 @@ public class Rook extends Piece {
 
         int row = position.getRow();
         int col = position.getColumn();
-for (int r = row - 1; r >= 0; r--) {
+
+        // up
+        for (int r = row - 1; r >= 0; r--) {
             Position p = new Position(r, col);
-            if (board.getPiece(p) == null) {
+            Piece target = board.getPiece(p);
+
+            if (target == null) {
                 moves.add(p);
             } else {
-                if (board.getPiece(p).getColor() != color) {
-                    moves.add(p);
+                if (!target.getColor().equals(this.color)) {
+                    moves.add(p); // capture
                 }
-                break;
-            }
-        }
-        for (int r = row + 1; r < 8; r++) {
-            Position p = new Position(r, col);
-            if (board.getPiece(p) == null) {
-                moves.add(p);
-            } else {
-                if (board.getPiece(p).getColor() != color) {
-                    moves.add(p);
-                }
-                break;
+                break; // blocked
             }
         }
 
-        for (int c = col - 1; c >= 0; c--) {
-            Position p = new Position(row, c);
-            if (board.getPiece(p) == null) {
+        // down
+        for (int r = row + 1; r < 8; r++) {
+            Position p = new Position(r, col);
+            Piece target = board.getPiece(p);
+
+            if (target == null) {
                 moves.add(p);
             } else {
-                if (board.getPiece(p).getColor() != color) {
-                    moves.add(p);
+                if (!target.getColor().equals(this.color)) {
+                    moves.add(p); // capture
                 }
-                break;
+                break; // blocked
             }
         }
-        for (int c = col + 1; c < 8; c++) {
+
+        // left
+        for (int c = col - 1; c >= 0; c--) {
             Position p = new Position(row, c);
-            if (board.getPiece(p) == null) {
+            Piece target = board.getPiece(p);
+
+            if (target == null) {
                 moves.add(p);
             } else {
-                if (board.getPiece(p).getColor() != color) {
-                    moves.add(p);
+                if (!target.getColor().equals(this.color)) {
+                    moves.add(p); // capture
                 }
-                break;
+                break; // blocked
+            }
+        }
+
+        // right
+        for (int c = col + 1; c < 8; c++) {
+            Position p = new Position(row, c);
+            Piece target = board.getPiece(p);
+
+            if (target == null) {
+                moves.add(p);
+            } else {
+                if (!target.getColor().equals(this.color)) {
+                    moves.add(p); // capture
+                }
+                break; // blocked
             }
         }
 
         return moves;
     }
+
     @Override
     public String getSymbol() {
-        return color == Color.WHITE ? "wr" : "br";
+        return Color.WHITE.equals(color) ? "wr" : "br";
     }
 }

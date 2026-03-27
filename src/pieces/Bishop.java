@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.awt.Color;
 
-
 public class Bishop extends Piece {
 
     public Bishop(Color color, Position position) {
@@ -20,55 +19,71 @@ public class Bishop extends Piece {
         int row = position.getRow();
         int col = position.getColumn();
 
+        // up-left
         for (int r = row - 1, c = col - 1; r >= 0 && c >= 0; r--, c--) {
             Position p = new Position(r, c);
-            if (board.getPiece(p) == null) {
+            Piece target = board.getPiece(p);
+
+            if (target == null) {
                 moves.add(p);
             } else {
-                if (board.getPiece(p).getColor() != color) {
-                    moves.add(p);
+                if (!target.getColor().equals(this.color)) {
+                    moves.add(p); // capture
                 }
-                break;
+                break; // blocked
             }
         }
+
+        // up-right
         for (int r = row - 1, c = col + 1; r >= 0 && c < 8; r--, c++) {
             Position p = new Position(r, c);
-            if (board.getPiece(p) == null) {
+            Piece target = board.getPiece(p);
+
+            if (target == null) {
                 moves.add(p);
             } else {
-                if (board.getPiece(p).getColor() != color) {
-                    moves.add(p);
+                if (!target.getColor().equals(this.color)) {
+                    moves.add(p); // capture
                 }
-                break;
+                break; // blocked
             }
         }
+
+        // down-left
         for (int r = row + 1, c = col - 1; r < 8 && c >= 0; r++, c--) {
             Position p = new Position(r, c);
-            if (board.getPiece(p) == null) {
+            Piece target = board.getPiece(p);
+
+            if (target == null) {
                 moves.add(p);
             } else {
-                if (board.getPiece(p).getColor() != color) {
-                    moves.add(p);
+                if (!target.getColor().equals(this.color)) {
+                    moves.add(p); // capture
                 }
-                break;
+                break; // blocked
             }
         }
+
+        // down-right
         for (int r = row + 1, c = col + 1; r < 8 && c < 8; r++, c++) {
             Position p = new Position(r, c);
-            if (board.getPiece(p) == null) {
+            Piece target = board.getPiece(p);
+
+            if (target == null) {
                 moves.add(p);
             } else {
-                if (board.getPiece(p).getColor() != color) {
-                    moves.add(p);
+                if (!target.getColor().equals(this.color)) {
+                    moves.add(p); // capture
                 }
-                break;
+                break; // blocked
             }
         }
+
         return moves;
     }
 
     @Override
     public String getSymbol() {
-        return color == Color.WHITE ? "wb" : "bb";
+        return Color.WHITE.equals(color) ? "wb" : "bb";
     }
 }

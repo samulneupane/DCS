@@ -224,6 +224,16 @@ public void display() {
 }
 
 // TODO: Implement stalemate logic
+	
+public boolean isInsideBoard(Position pos) {
+    int r = pos.getRow();
+    int c = pos.getColumn();
+    return r >= 0 && r < 8 && c >= 0 && c < 8;
+}
+public boolean isValidPosition(Position pos) {
+    return pos.getRow() >= 0 && pos.getRow() < 8 &&
+           pos.getColumn() >= 0 && pos.getColumn() < 8;
+}
 public boolean isStalemate(String currentTurn){
     return false;
 }

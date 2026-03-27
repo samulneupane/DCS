@@ -1,28 +1,35 @@
 package pieces;
 
-import Position;
+import utils.Board;
+import utils.Position;
+import java.util.List;
+import java.awt.Color;
+
+// enum Color {
+//     WHITE,
+//     BLACK
+// }
 
 public abstract class Piece {
-
-    protected boolean isWhite;
+    protected Color color;
     protected Position position;
 
-    public Piece(boolean isWhite, Position position) {
-        this.isWhite = isWhite;
+    public Piece(Color color, Position position) {
+        this.color = color;
         this.position = position;
     }
-
-    public boolean isWhite() {
-        return isWhite;
+    public Color getColor(){
+        return color;
     }
-
-    public Position getPosition() {
+    public Position getPosition(){
         return position;
     }
-
     public void setPosition(Position position) {
         this.position = position;
     }
+    public abstract List<Position> possibleMoves(Board board);
 
     public abstract String getSymbol();
+
 }
+

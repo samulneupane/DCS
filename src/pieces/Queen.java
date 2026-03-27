@@ -1,7 +1,7 @@
 package pieces;
 
-import src.Board;
-import src.Position;
+import utils.Board;
+import utils.Position;
 import java.util.ArrayList;
 import java.util.List;
 import java.awt.Color;
@@ -9,7 +9,7 @@ import java.awt.Color;
 
 public class Queen extends Piece {
 
-    public Queen(String color, Position position) {
+    public Queen(Color color, Position position) {
         super(color, position);
     }
 
@@ -19,11 +19,9 @@ public class Queen extends Piece {
 
         int row = position.getRow();
         int col = position.getColumn();
-
-        // 8 directions: vertical, horizontal, diagonals
         int[][] directions = {
-            {-1, 0}, {1, 0}, {0, -1}, {0, 1},    // up, down, left, right
-            {-1, -1}, {-1, 1}, {1, -1}, {1, 1}   // diagonals
+            {-1, 0}, {1, 0}, {0, -1}, {0, 1},
+            {-1, -1}, {-1, 1}, {1, -1}, {1, 1}
         };
 
         for (int[] dir : directions) {
@@ -36,13 +34,11 @@ public class Queen extends Piece {
                 if (board.getPiece(p) == null) {
                     moves.add(p);
                 } else {
-                    // Add opponent piece if present
-                    if (!board.getPiece(p).getColor().equals(this.color)) {
+                    if (board.getPiece(p).getColor() != color) {
                         moves.add(p);
                     }
-                    break; // stop in this direction
+                    break;
                 }
-
                 r += dir[0];
                 c += dir[1];
             }
@@ -50,9 +46,8 @@ public class Queen extends Piece {
 
         return moves;
     }
-
-    @Override
+@Override
     public String getSymbol() {
-        return color.equals("white") ? "wQ" : "bQ";
+        return color == Color.WHITE ? "wq" : "bq";
     }
 }

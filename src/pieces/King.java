@@ -1,7 +1,7 @@
 package pieces;
 
-import src.Board;
-import src.Position;
+import utils.Board;
+import utils.Position;
 import java.util.ArrayList;
 import java.util.List;
 import java.awt.Color;
@@ -9,7 +9,7 @@ import java.awt.Color;
 
 public class King extends Piece {
 
-    public King(String color, Position position) {
+    public King(Color color, Position position) {
         super(color, position);
     }
 
@@ -31,7 +31,7 @@ public class King extends Piece {
 
             //checks if a piece exists or not
             if (board.isInsideBoard(p)) {
-                if (board.getPiece(p) == null || !board.getPiece(p).getColor().equals(this.color)) {
+                if (board.getPiece(p) == null || board.getPiece(p).getColor() != color) {
                     moves.add(p);
                 }
             }
@@ -42,6 +42,6 @@ public class King extends Piece {
 
     @Override
     public String getSymbol() {
-        return color.equals("white") ? "wK" : "bK";
+        return color == Color.WHITE ? "wk" : "bk";
     }
 }

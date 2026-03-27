@@ -1,46 +1,37 @@
- package pieces;
+package pieces;
 
-import utils.Board;
-import utils.Position;
 import java.util.ArrayList;
 import java.util.List;
 import java.awt.Color;
 
 public class Knight extends Piece {
 
-    public Knight(Color color, Position position) {
-        super(color, position);
+    public Knight(boolean isWhite, Position position) {
+        super(isWhite, position);
     }
 
     @Override
-    public List<Position> possibleMoves(Board board) {
+    public List<Position> possibleMoves() {
         List<Position> moves = new ArrayList<>();
 
         int[][] offsets = {
-            {-2, -1}, {-2, 1},
-            {-1, -2}, {-1, 2},
-            {1, -2}, {1, 2},
-            {2, -1}, {2, 1}
+            { -2, -1 }, { -2,  1 },
+            { -1, -2 }, { -1,  2 },
+            {  1, -2 }, {  1,  2 },
+            {  2, -1 }, {  2,  1 }
         };
 
         int row = position.getRow();
-        int col = position.getColumn();
+        int col = position.getCol();
 
         for (int[] offset : offsets) {
             Position p = new Position(row + offset[0], col + offset[1]);
 
-            if (board.isInsideBoard(p)) {
-                if (board.getPiece(p) == null || board.getPiece(p).getColor() != color) {
-                    moves.add(p);
-                }
+            if (newRow >= 0 && newRow < 8 && newCol >= 0 && newCol < 8) {
+                moves.add(new Position(newRow, newCol));
             }
         }
 
         return moves;
-    }
-
-    @Override
-    public String getSymbol() {
-        return color == Color.WHITE ? "wn" : "bn";
     }
 }

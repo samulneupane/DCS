@@ -1,10 +1,11 @@
 package pieces;
 
-import board.Board;
-import board.Position;
-import enums.Color;
+import utils.Board;
+import utils.Position;
 import java.util.ArrayList;
 import java.util.List;
+import java.awt.Color;
+
 
 public class King extends Piece {
 
@@ -26,8 +27,9 @@ public class King extends Piece {
         int col = position.getColumn();
 
         for (int[] offset : offsets) {
-            Position p = new Position(row + offset[0], Column + offset[1]);
+            Position p = new Position(row + offset[0], col + offset[1]);
 
+            //checks if a piece exists or not
             if (board.isInsideBoard(p)) {
                 if (board.getPiece(p) == null || board.getPiece(p).getColor() != color) {
                     moves.add(p);

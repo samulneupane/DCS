@@ -1,10 +1,11 @@
 package pieces;
 
-import board.Board;
-import board.Position;
-import enums.Color;
+import utils.Board;
+import utils.Position;
 import java.util.ArrayList;
 import java.util.List;
+import java.awt.Color;
+
 
 public class Queen extends Piece {
 

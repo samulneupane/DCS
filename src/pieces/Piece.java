@@ -5,10 +5,7 @@ import utils.Position;
 import java.util.List;
 import java.awt.Color;
 
-// enum Color {
-//     WHITE,
-//     BLACK
-// }
+
 
 public abstract class Piece {
     protected Color color;

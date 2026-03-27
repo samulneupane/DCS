@@ -23,23 +23,27 @@ public class Board {
     
     public void initializeBoard() {
 
-        Position pos = new Position(0, 0);
-
-        // White pieces 
-        board[0][0] = new Rook(Color.WHITE   , pos);
-        board[0][1] = new Knight(Color.WHITE   , pos);
-        board[0][2] = new Bishop(Color.WHITE   , pos);
-        board[0][3] = new Queen(Color.WHITE   , pos);
-        board[0][4] = new King(Color.WHITE   , pos);
-        board[0][5] = new Bishop(Color.WHITE   , pos);
-        board[0][6] = new Knight(Color.WHITE   , pos);
-        board[0][7] = new Rook(Color.WHITE   , pos);
+        // White major pieces (row 0)
+        board[0][0] = new Rook(Color.WHITE, new Position(0, 0));
+        board[0][1] = new Knight(Color.WHITE, new Position(0, 1));
+        board[0][2] = new Bishop(Color.WHITE, new Position(0, 2));
+        board[0][3] = new Queen(Color.WHITE, new Position(0, 3));
+        board[0][4] = new King(Color.WHITE, new Position(0, 4));
+        board[0][5] = new Bishop(Color.WHITE, new Position(0, 5));
+        board[0][6] = new Knight(Color.WHITE, new Position(0, 6));
+        board[0][7] = new Rook(Color.WHITE, new Position(0, 7));
     
+        // White pawns (row 1)
         for (int i = 0; i < 8; i++) {
-            board[1][i] = new Pawn(Color.BLACK, new Position(1, i));
+            board[1][i] = new Pawn(Color.WHITE, new Position(1, i));
         }
     
-        // Black pieces
+        // Black pawns (row 6)
+        for (int i = 0; i < 8; i++) {
+            board[6][i] = new Pawn(Color.BLACK, new Position(6, i));
+        }
+    
+        // Black major pieces (row 7)
         board[7][0] = new Rook(Color.BLACK, new Position(7, 0));
         board[7][1] = new Knight(Color.BLACK, new Position(7, 1));
         board[7][2] = new Bishop(Color.BLACK, new Position(7, 2));
@@ -48,10 +52,6 @@ public class Board {
         board[7][5] = new Bishop(Color.BLACK, new Position(7, 5));
         board[7][6] = new Knight(Color.BLACK, new Position(7, 6));
         board[7][7] = new Rook(Color.BLACK, new Position(7, 7));
-    
-        for (int i = 0; i < 8; i++) {
-            board[6][i] = new Pawn(Color.BLACK, new Position(6, i));
-        }
     }
     
     
@@ -109,13 +109,14 @@ public class Board {
     
 
 
-public boolean isCheck(String color) {
-    // Find the king of the given color
+public boolean isCheck(Color color) {
     Position kingPos = null;
+
+    // Find king of that color
     for (int row = 0; row < 8; row++) {
         for (int col = 0; col < 8; col++) {
             Piece p = board[row][col];
-            if (p != null && p.getSymbol().equals("King") && p.getColor().equals(color)) {
+            if (p != null && p instanceof King && p.getColor().equals(color)) {
                 kingPos = new Position(row, col);
                 break;
             }
@@ -124,32 +125,30 @@ public boolean isCheck(String color) {
     }
 
     if (kingPos == null) {
-        System.out.println("Error: King not found for color " + color);
+        // If this happens now, it means the king is actually missing from the board
+        System.out.println("Error: King not found for color " + (Color.WHITE.equals(color) ? "white" : "black"));
         return false;
     }
-// Check all opponent pieces if they can move to king's position
-String opponentColor = color.equals("white") ? "black" : "white";
 
-for (int row = 0; row < 8; row++) {
-    for (int col = 0; col < 8; col++) {
-        Piece p = board[row][col];
-        if (p != null && p.getColor().equals(opponentColor)) {
-            List<Position> moves = p.possibleMoves(this);
-            for (Position pos : moves) {
-                if (pos.equals(kingPos)) {
-                    return true; // King is under attack
-                }
+    Color opponent = Color.WHITE.equals(color) ? Color.BLACK : Color.WHITE;
+
+    // Check all opponent moves to see if any attack the king square
+    for (int row = 0; row < 8; row++) {
+        for (int col = 0; col < 8; col++) {
+            Piece p = board[row][col];
+            if (p != null && p.getColor().equals(opponent)) {
+                List<Position> moves = p.possibleMoves(this);
+                if (moves.contains(kingPos)) return true;
             }
         }
     }
 
-}
-return false; // King is safe
-
+    return false;
 }
 
 
-public boolean isCheckmate(String color) {
+
+public boolean isCheckmate(Color color) {
     //if not in check, cannot be checkmate
     if (!isCheck(color)) {
         return false;
@@ -192,48 +191,37 @@ public boolean isCheckmate(String color) {
    
 }
 
-// src/Board.java
 public void display() {
-    System.out.println(); // blank line for spacing
-    // Print each row from 8 down to 1 (standard chess view)
+    System.out.println();
+
+    // Print rows 8 down to 1
     for (int row = 7; row >= 0; row--) {
-        // Print the rank number on the left
         System.out.print((row + 1) + " ");
 
         for (int col = 0; col < 8; col++) {
             Piece p = board[row][col];
+
             if (p != null) {
-                // Print piece as "wP", "bQ", etc.
-                String colorChar = Color.WHITE.equals(p.getColor()) ? "w" : "b";
-                String typeChar = p.getSymbol().substring(0, 1).toUpperCase(); // 'P', 'R', 'N', etc.
+                String sym = p.getSymbol();      // e.g. "wp", "bk"
+                String colorChar = sym.substring(0, 1);              // "w" or "b"
+                String typeChar  = sym.substring(1, 2).toUpperCase(); // "P","R","N","B","Q","K"
                 System.out.print(colorChar + typeChar + " ");
             } else {
-                // Empty square
                 System.out.print("## ");
             }
         }
-        System.out.println(); // next row
+        System.out.println();
     }
 
-    // Print file letters at bottom
-    System.out.print("  "); // indent for alignment
+    // Print file letters
+    System.out.print("  ");
     for (char c = 'A'; c <= 'H'; c++) {
         System.out.print(c + "  ");
     }
-    System.out.println(); // final newline
+    System.out.println();
 }
 
 // TODO: Implement stalemate logic
-	
-public boolean isInsideBoard(Position pos) {
-    int r = pos.getRow();
-    int c = pos.getColumn();
-    return r >= 0 && r < 8 && c >= 0 && c < 8;
-}
-public boolean isValidPosition(Position pos) {
-    return pos.getRow() >= 0 && pos.getRow() < 8 &&
-           pos.getColumn() >= 0 && pos.getColumn() < 8;
-}
 public boolean isStalemate(String currentTurn){
     return false;
 }

@@ -1,29 +1,29 @@
 // src/Player.java
-package src;
+
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
+import pieces.*;
 import utils.Board;
 import utils.Position;
 import java.awt.Color;
 
 public class Player {
 
-    private String color;              // "white" or "black"
+    private Color color;                    
     private List<Piece> piecesRemaining;
     private Scanner scanner;
 
     // Constructor
     public Player(Color color, Board board) {
-        this.color = color.toLowerCase();
+        this.color = color;
         this.piecesRemaining = new ArrayList<>();
         this.scanner = new Scanner(System.in);
     }
 
     // Getter for color
-    public String getColor() {
+    public Color getColor() {
         return color;
     }
 
@@ -47,7 +47,11 @@ public class Player {
         boolean validMove = false;
 
         while (!validMove) {
-            System.out.println(color + "'s move (e.g., E2 E4): ");
+            System.out.println(
+                (Color.WHITE.equals(color) ? "White" : "Black") +
+                "'s move (e.g., E2 E4): "
+            );
+
             String input = scanner.nextLine().trim();
 
             // Validate input format
@@ -68,8 +72,8 @@ public class Player {
                 continue;
             }
 
-            // Check if the piece belongs to the player
-            if (!piece.getColor().equals(color)) {
+            // ✅ Correct color comparison
+            if (!piece.getColor().equals(this.color)) {
                 System.out.println("You can only move your own pieces!");
                 continue;
             }

@@ -1,39 +1,31 @@
 package pieces;
 
-import src.Board;
-import src.Position;
+import utils.Board;
+import utils.Position;
 import java.util.ArrayList;
 import java.util.List;
 import java.awt.Color;
 
 
 public class Pawn extends Piece {
-
-    public Pawn(String color, Position position) {
-        super(color, position);
+    public Pawn(Color color, Position position) {
+        super(color, position); // Show the position the pawn is on and the color it is
     }
-
-    @Override
     public List<Position> possibleMoves(Board board) {
         List<Position> moves = new ArrayList<>();
-
-        int direction = color.equals("white") ? -1 : 1; // white moves up, black moves down
+        int direction = (color == color.WHITE) ? -1 : 1;
         int row = position.getRow();
         int col = position.getColumn();
 
-        // One step forward
         Position oneStep = new Position(row + direction, col);
-        if (board.isInsideBoard(oneStep) && board.getPiece(oneStep) == null) {
+          if (board.isInsideBoard(oneStep) && board.getPiece(oneStep) == null) {
             moves.add(oneStep);
-        }
-
-        // TODO: add two-step initial move and capture diagonals if needed
-
-        return moves;
     }
-
+    return moves;
+    }
     @Override
     public String getSymbol() {
-        return color.equals("white") ? "wP" : "bP";
+        return color == Color.WHITE ? "wp" : "bp";
     }
-}
+ }    
+

@@ -96,13 +96,13 @@ public class Board {
         // Capture opponent piece if present
         if (targetPiece != null) {
             capturedPieces.add(targetPiece);
-            System.out.println(targetPiece.getColor() + " " + targetPiece.getSymbol() + " captured!");
+            System.out.println(targetPiece.getColor() + " " + targetPiece.getType() + " captured!");
         }
 
     //finally Moving the piece
     board[to.getRow()][to.getColumn()] = movingPiece;
     board[from.getRow()][from.getColumn()] = null;
-    movingPiece.setPosition(to); // update piece's internal position
+    movingPiece.setPosition(to.toString()); // update piece's internal position
 
     return true;
 }
@@ -115,7 +115,7 @@ public boolean isCheck(String color) {
     for (int row = 0; row < 8; row++) {
         for (int col = 0; col < 8; col++) {
             Piece p = board[row][col];
-            if (p != null && p.getSymbol().equals("King") && p.getColor().equals(color)) {
+            if (p != null && p.getType().equals("King") && p.getColor().equals(color)) {
                 kingPos = new Position(row, col);
                 break;
             }
@@ -134,7 +134,7 @@ for (int row = 0; row < 8; row++) {
     for (int col = 0; col < 8; col++) {
         Piece p = board[row][col];
         if (p != null && p.getColor().equals(opponentColor)) {
-            List<Position> moves = p.possibleMoves(this);
+            List<Position> moves = p.possibleMoves(board);
             for (Position pos : moves) {
                 if (pos.equals(kingPos)) {
                     return true; // King is under attack
@@ -160,7 +160,7 @@ public boolean isCheckmate(String color) {
         for (int col = 0; col < 8; col++) {
             Piece p = board[row][col];
             if (p != null && p.getColor().equals(color)) {
-                List<Position> moves = p.possibleMoves(this);
+                List<Position> moves = p.possibleMoves(board);
                 
                 //trying each move temporarily
                 for (Position to : moves) {
@@ -170,7 +170,7 @@ public boolean isCheckmate(String color) {
                     // Make the move
                     board[to.getRow()][to.getColumn()] = p;
                     board[row][col] = null;
-                    p.setPosition(to);
+                    p.setPosition(to.toString());
 
                     // Check if king is still in check
                     boolean stillInCheck = isCheck(color);
@@ -178,7 +178,7 @@ public boolean isCheckmate(String color) {
                     // Undo the move
                     board[row][col] = p;
                     board[to.getRow()][to.getColumn()] = captured;
-                    p.setPosition(from);
+                    p.setPosition(from.toString());
 
                     if (!stillInCheck) {
                         return false; // Found at least one move that escapes check
@@ -204,8 +204,8 @@ public void display() {
             Piece p = board[row][col];
             if (p != null) {
                 // Print piece as "wP", "bQ", etc.
-                String colorChar = Color.WHITE.equals(p.getColor()) ? "w" : "b";
-                String typeChar = p.getSymbol().substring(0, 1).toUpperCase(); // 'P', 'R', 'N', etc.
+                String colorChar = p.getColor().substring(0, 1); // 'w' or 'b'
+                String typeChar = p.getType().substring(0, 1).toUpperCase(); // 'P', 'R', 'N', etc.
                 System.out.print(colorChar + typeChar + " ");
             } else {
                 // Empty square
@@ -226,17 +226,6 @@ public void display() {
 // TODO: Implement stalemate logic
 public boolean isStalemate(String currentTurn){
     return false;
-}
-
-public boolean isInsideBoard(Position pos) {
-    int r = pos.getRow();
-    int c = pos.getColumn();
-    return r >= 0 && r < 8 && c >= 0 && c < 8;
-}
-
-public boolean isValidPosition(Position pos) {
-    return pos.getRow() >= 0 && pos.getRow() < 8 &&
-           pos.getColumn() >= 0 && pos.getColumn() < 8;
 }
 }
 

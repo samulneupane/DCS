@@ -4,7 +4,7 @@ package src;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import pieces.*;
+
 import utils.Board;
 import utils.Position;
 import java.awt.Color;

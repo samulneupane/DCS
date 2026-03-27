@@ -4,6 +4,8 @@ import src.Position;
 import src.Board;
 import java.util.ArrayList;
 import java.util.List;
+import java.awt.Color;
+
 
 public class Bishop extends Piece {
 

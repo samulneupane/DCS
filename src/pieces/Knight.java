@@ -2,6 +2,7 @@ package pieces;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.awt.Color;
 
 public class Knight extends Piece {
 
@@ -24,8 +25,7 @@ public class Knight extends Piece {
         int col = position.getCol();
 
         for (int[] offset : offsets) {
-            int newRow = row + offset[0];
-            int newCol = col + offset[1];
+            Position p = new Position(row + offset[0], col + offset[1]);
 
             if (newRow >= 0 && newRow < 8 && newCol >= 0 && newCol < 8) {
                 moves.add(new Position(newRow, newCol));

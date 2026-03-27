@@ -4,6 +4,8 @@ import src.Board;
 import src.Position;
 import java.util.ArrayList;
 import java.util.List;
+import java.awt.Color;
+
 
 public class King extends Piece {
 
@@ -27,6 +29,7 @@ public class King extends Piece {
         for (int[] offset : offsets) {
             Position p = new Position(row + offset[0], col + offset[1]);
 
+            //checks if a piece exists or not
             if (board.isInsideBoard(p)) {
                 if (board.getPiece(p) == null || !board.getPiece(p).getColor().equals(this.color)) {
                     moves.add(p);

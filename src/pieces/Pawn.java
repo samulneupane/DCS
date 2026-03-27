@@ -4,6 +4,8 @@ import src.Board;
 import src.Position;
 import java.util.ArrayList;
 import java.util.List;
+import java.awt.Color;
+
 
 public class Pawn extends Piece {
 

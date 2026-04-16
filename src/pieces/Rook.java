@@ -8,8 +8,9 @@ import java.awt.Color;
 
 public class Rook extends Piece {
 
-    public Rook(Color color, Position position) {
-        super(color, position);
+    public Rook(Color color, Position position , String rank) {
+        super(color, position , rank);
+        rank = "Rook";
     }
 
     @Override

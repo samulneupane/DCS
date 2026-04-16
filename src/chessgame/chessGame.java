@@ -2,7 +2,12 @@ package chessgame;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.Color;
+
+
+import pieces.Pawn;
 import pieces.Piece;
+import pieces.Rook;
 import utils.Board;
 import utils.Position;
 
@@ -22,13 +27,37 @@ public class chessGame extends JFrame {
             for (int col = 0; col < 8; col++) {
                 JPanel square = new JPanel();
                 square.setBackground(lightSquare ? Color.LIGHT_GRAY : Color.DARK_GRAY);
+                Piece piece = board.getPiece(new Position(row, col));
+                JLabel label = new JLabel(getSymbol(piece), SwingConstants.CENTER);
+
+                square.add(label);                
                 add(square);
                 lightSquare = !lightSquare;
             }
             lightSquare = !lightSquare;
         }
     }
-
+private String getSymbol(Piece piece) {
+        if (piece == null) {
+            return "";
+        }
+        switch (piece.getRank()) {
+            case "Pawn":
+                return piece.getColor() == Piece.Color.WHITE ? "♙" : "♟";
+            case "Rook":
+                return piece.getColor() == Piece.Color.WHITE ? "♖" : "♜";
+            case "Knight":
+                return piece.getColor() == Piece.Color.WHITE ? "♘" : "♞";
+            case "Bishop":
+                return piece.getColor() == Piece.Color.WHITE ? "♗" : "♝";
+            case "Queen":
+                return piece.getColor() == Piece.Color.WHITE ? "♕" : "♛";
+            case "King":
+                return piece.getColor() == Piece.Color.WHITE ? "♔" : "♚";
+            default:
+                return "";
+        }
+    }
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             chessGame frame = new chessGame();

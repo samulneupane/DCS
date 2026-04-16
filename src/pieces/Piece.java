@@ -1,21 +1,22 @@
 package pieces;
 
-import board.Board;
-import board.Position;
+import utils.Board;
+import utils.Position;
 import java.util.List;
+import java.awt.Color;
 
-enum Color {
-    WHITE,
-    BLACK
-}
+
 
 public abstract class Piece {
-    protected Color color;
-    protected Position position;
+    public Color color;
+    public  Position position;
+    public String rank;
+  
 
-    public Piece(Color color, Position position) {
+    public Piece(Color color, Position position , String rank) {
         this.color = color;
         this.position = position;
+        this.rank = rank;
     }
     public Color getColor(){
         return color;
@@ -25,6 +26,9 @@ public abstract class Piece {
     }
     public void setPosition(Position position) {
         this.position = position;
+    }
+    public String getRank() {
+        return rank;
     }
     public abstract List<Position> possibleMoves(Board board);
 

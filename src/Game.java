@@ -1,4 +1,5 @@
-package src;
+import java.awt.Color;
+import utils.Board;
 
 public class Game {
 
@@ -17,19 +18,15 @@ public class Game {
 
     // Initialize the game
     public void start() {
-        board.initialize(); // Place all pieces in starting positions
+        board.initializeBoard();
         System.out.println("Game started!");
-        board.display();    // Show initial board
+        board.display();
     }
 
-    // End the game and declare winner or draw
+    // End the game and declare winner
     public void end(String winner) {
         System.out.println("Game Over!");
-        if (winner == null) {
-            System.out.println("It's a draw!");
-        } else {
-            System.out.println("Winner: " + winner);
-        }
+        System.out.println("Winner: " + winner);
     }
 
     // Main game loop
@@ -40,31 +37,31 @@ public class Game {
             board.display();
             System.out.println(currentTurn + "'s turn.");
 
-            Player currentPlayer = currentTurn.equals("white") ? whitePlayer : blackPlayer;
-            currentPlayer.makeMove(board); // Player makes a move
+            Player currentPlayer =
+                currentTurn.equals("white") ? whitePlayer : blackPlayer;
 
-            // Check if current player is in checkmate
-            if (board.isCheckmate(currentTurn)) {
+            currentPlayer.makeMove(board);
+
+            // Convert String turn → Color
+            Color turnColor =
+                currentTurn.equals("white") ? Color.WHITE : Color.BLACK;
+
+            // Checkmate only (no stalemate)
+            if (board.isCheckmate(turnColor)) {
                 end(currentTurn.equals("white") ? "black" : "white");
                 gameOver = true;
-            } 
-            // Optional: check for stalemate
-            else if (board.isStalemate(currentTurn)) {
-                end(null);
-                gameOver = true;
-            } 
-            else {
+            } else {
                 // Switch turns
                 currentTurn = currentTurn.equals("white") ? "black" : "white";
             }
         }
     }
 
-    // Main method to run the game
+    // Main method
     public static void main(String[] args) {
         Board board = new Board();
-        Player white = new Player("white", board);
-        Player black = new Player("black", board);
+        Player white = new Player(Color.WHITE, board);
+        Player black = new Player(Color.BLACK, board);
 
         Game game = new Game(white, black);
         game.start();

@@ -22,6 +22,12 @@ public class chessGame extends JFrame {
     repaint();
 });
 
+  
+  gameMenu.add(newGameItem);
+  menuBar.add(gameMenu);
+  setJMenuBar(menuBar);
+
+
 
     Board board = new Board();
 

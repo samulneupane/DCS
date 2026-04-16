@@ -97,6 +97,8 @@ public class Board {
         if (targetPiece != null) {
             capturedPieces.add(targetPiece);
             System.out.println(targetPiece.getColor() + " " + targetPiece.getSymbol() + " captured!");
+            if (targetPiece instanceof King) {
+                String winner = movingPiece.getColor().equals(Color.WHITE) ? "White" : "Black";
         }
 
     //finally Moving the piece

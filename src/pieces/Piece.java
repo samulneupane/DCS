@@ -8,17 +8,15 @@ import java.awt.Color;
 
 
 public abstract class Piece {
-    protected Color color;
-    protected Position position;
-    protected String rank;
-  //  private String symbol; 
-
+    public Color color;
+    public  Position position;
+    public String rank;
+  
 
     public Piece(Color color, Position position , String rank) {
         this.color = color;
         this.position = position;
         this.rank = rank;
-       // this.symbol = symbol;
     }
     public Color getColor(){
         return color;

@@ -43,17 +43,17 @@ private String getSymbol(Piece piece) {
         }
         switch (piece.getRank()) {
             case "Pawn":
-                return piece.getColor() == Piece.Color.WHITE ? "♙" : "♟";
+                return piece.getColor() == piece.getColor().WHITE ? "♙" : "♟";
             case "Rook":
-                return piece.getColor() == Piece.Color.WHITE ? "♖" : "♜";
+                return piece.getColor() == piece.getColor().WHITE ? "♖" : "♜";
             case "Knight":
-                return piece.getColor() == Piece.Color.WHITE ? "♘" : "♞";
+                return piece.getColor() == piece.getColor().WHITE ? "♘" : "♞";
             case "Bishop":
-                return piece.getColor() == Piece.Color.WHITE ? "♗" : "♝";
+                return piece.getColor() == piece.getColor().WHITE ? "♗" : "♝";
             case "Queen":
-                return piece.getColor() == Piece.Color.WHITE ? "♕" : "♛";
+                return piece.getColor() == piece.getColor().WHITE ? "♕" : "♛";
             case "King":
-                return piece.getColor() == Piece.Color.WHITE ? "♔" : "♚";
+                return piece.getColor() == piece.getColor().WHITE ? "♔" : "♚";
             default:
                 return "";
         }

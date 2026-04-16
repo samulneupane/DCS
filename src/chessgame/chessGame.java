@@ -9,7 +9,8 @@ import utils.Board;
 import utils.Position;
 
 public class chessGame extends JFrame {
-  
+  JMenuBar menuBar = new JMenuBar();
+  JMenu gameMenu = new JMenu("Game");
     Board board = new Board();
 
     public chessGame() {

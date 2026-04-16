@@ -11,6 +11,9 @@ import utils.Position;
 public class chessGame extends JFrame {
   JMenuBar menuBar = new JMenuBar();
   JMenu gameMenu = new JMenu("Game");
+
+  JMenuItem newGameItem = new JMenuItem("New Game");
+
     Board board = new Board();
 
     public chessGame() {

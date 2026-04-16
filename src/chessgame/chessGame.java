@@ -22,7 +22,6 @@ public class chessGame extends JFrame {
         setSize(600, 600);
         setLocationRelativeTo(null);
 
-        // ✅ MENU BAR SETUP (MUST BE INSIDE CONSTRUCTOR)
         newGameItem.addActionListener(e -> {
             getContentPane().removeAll();
             board = new Board();

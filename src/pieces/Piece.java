@@ -10,10 +10,13 @@ import java.awt.Color;
 public abstract class Piece {
     protected Color color;
     protected Position position;
+  //  private String symbol; 
+
 
     public Piece(Color color, Position position) {
         this.color = color;
         this.position = position;
+       // this.symbol = symbol;
     }
     public Color getColor(){
         return color;

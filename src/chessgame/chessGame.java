@@ -2,8 +2,13 @@ package chessgame;
 
 import javax.swing.*;
 import java.awt.*;
+import pieces.Piece;
+import utils.Board;
+import utils.Position;
 
 public class chessGame extends JFrame {
+  
+    Board board = new Board();
 
     public chessGame() {
         setTitle("8x8 Chess Board");

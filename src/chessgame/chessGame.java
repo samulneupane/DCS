@@ -2,47 +2,65 @@ package chessgame;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
 import pieces.Piece;
 import utils.Board;
 import utils.Position;
 
 public class chessGame extends JFrame {
 
-    JMenuBar menuBar = new JMenuBar();
-    JMenu gameMenu = new JMenu("Game");
-    JMenuItem newGameItem = new JMenuItem("New Game");
+    private Board board;
+    private JPanel boardPanel;
 
-    Board board = new Board();
+    private JMenuBar menuBar;
+    private JMenu gameMenu;
+    private JMenuItem newGameItem;
 
     public chessGame() {
 
+        board = new Board();
+
         setTitle("8x8 Chess Board");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new GridLayout(8, 8));
         setSize(600, 600);
         setLocationRelativeTo(null);
+        setLayout(new BorderLayout());
 
-        newGameItem.addActionListener(e -> {
-            getContentPane().removeAll();
-            board = new Board();
-            drawBoard();
-            revalidate();
-            repaint();
+        // ===== MENU BAR =====
+        menuBar = new JMenuBar();
+        gameMenu = new JMenu("Game");
+        newGameItem = new JMenuItem("New Game");
+
+        newGameItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                board = new Board();
+                drawBoard();
+            }
         });
 
         gameMenu.add(newGameItem);
         menuBar.add(gameMenu);
         setJMenuBar(menuBar);
 
-        // Draw initial board
+        // ===== BOARD PANEL =====
+        boardPanel = new JPanel();
+        boardPanel.setLayout(new GridLayout(8, 8));
+        add(boardPanel, BorderLayout.CENTER);
+
         drawBoard();
     }
 
     private void drawBoard() {
+        boardPanel.removeAll();
+
         boolean lightSquare = true;
 
         for (int row = 0; row < 8; row++) {
             for (int col = 0; col < 8; col++) {
+
                 JPanel square = new JPanel();
                 square.setBackground(lightSquare ? Color.LIGHT_GRAY : Color.DARK_GRAY);
 
@@ -51,15 +69,21 @@ public class chessGame extends JFrame {
                 label.setFont(new Font("Serif", Font.PLAIN, 52));
 
                 square.add(label);
-                add(square);
+                boardPanel.add(square);
+
                 lightSquare = !lightSquare;
             }
             lightSquare = !lightSquare;
         }
+
+        boardPanel.revalidate();
+        boardPanel.repaint();
     }
 
     private String getSymbol(Piece piece) {
-        if (piece == null) return "";
+        if (piece == null) {
+            return "";
+        }
 
         switch (piece.getRank()) {
             case "Pawn":
@@ -80,9 +104,12 @@ public class chessGame extends JFrame {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            chessGame frame = new chessGame();
-            frame.setVisible(true);
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                chessGame frame = new chessGame();
+                frame.setVisible(true);
+            }
         });
     }
 }

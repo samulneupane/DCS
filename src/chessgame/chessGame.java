@@ -13,12 +13,15 @@ public class chessGame extends JFrame {
     Board board = new Board();
 
     public chessGame() {
+        // Set up the JFrame
         setTitle("8x8 Chess Board");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new GridLayout(8, 8));
         setSize(600, 600);
         setLocationRelativeTo(null);
 
+
+        // Create chessboard squares and add pieces, alternating colors.
         boolean lightSquare = true;
         for (int row = 0; row < 8; row++) {
             for (int col = 0; col < 8; col++) {
@@ -34,6 +37,7 @@ public class chessGame extends JFrame {
             lightSquare = !lightSquare;
         }
     }
+    // draws each piece on the board using unicode chess symbols
 private String getSymbol(Piece piece) {
         if (piece == null) {
             return "";

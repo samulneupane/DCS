@@ -97,8 +97,12 @@ public class Board {
         if (targetPiece != null) {
             capturedPieces.add(targetPiece);
             System.out.println(targetPiece.getColor() + " " + targetPiece.getSymbol() + " captured!");
+           //If King is captured,declare winner and terminate game
             if (targetPiece instanceof King) {
                 String winner = movingPiece.getColor().equals(Color.WHITE) ? "White" : "Black";
+                board[to.getRow()][to.getColumn()] = movingPiece;
+                board[from.getRow()][from.getColumn()] = null;
+                movingPiece.setPosition(to);
         }
 
     //finally Moving the piece

@@ -1,6 +1,9 @@
 package utils;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.JOptionPane;
+
 import java.awt.Color;
 
 import pieces.*;
@@ -100,9 +103,13 @@ public class Board {
            //If King is captured,declare winner and terminate game
             if (targetPiece instanceof King) {
                 String winner = movingPiece.getColor().equals(Color.WHITE) ? "White" : "Black";
+                // move the piece and update the board
                 board[to.getRow()][to.getColumn()] = movingPiece;
                 board[from.getRow()][from.getColumn()] = null;
                 movingPiece.setPosition(to);
+                // Show winning message
+                JOptionPane.showMessageDialog(null, winner + " The King was captured.! you are a winner!");
+                System.exit(0);
         }
 
     //finally Moving the piece

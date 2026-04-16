@@ -14,6 +14,15 @@ public class chessGame extends JFrame {
 
   JMenuItem newGameItem = new JMenuItem("New Game");
 
+  newGameItem.addActionListener(e -> {
+    getContentPane().removeAll();
+    board = new Board(); // resetting the game
+    drawBoard(); //redrawing the board
+    revalidate();
+    repaint();
+});
+
+
     Board board = new Board();
 
     public chessGame() {

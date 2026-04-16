@@ -4,10 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.Color;
 
-
-import pieces.Pawn;
 import pieces.Piece;
-import pieces.Rook;
 import utils.Board;
 import utils.Position;
 
@@ -19,7 +16,7 @@ public class chessGame extends JFrame {
         setTitle("8x8 Chess Board");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new GridLayout(8, 8));
-        setSize(640, 640);
+        setSize(600, 600);
         setLocationRelativeTo(null);
 
         boolean lightSquare = true;
@@ -29,7 +26,7 @@ public class chessGame extends JFrame {
                 square.setBackground(lightSquare ? Color.LIGHT_GRAY : Color.DARK_GRAY);
                 Piece piece = board.getPiece(new Position(row, col));
                 JLabel label = new JLabel(getSymbol(piece), SwingConstants.CENTER);
-
+                label.setFont(new Font("Serif", Font.PLAIN, 52));    
                 square.add(label);                
                 add(square);
                 lightSquare = !lightSquare;

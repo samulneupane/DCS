@@ -8,10 +8,11 @@ import java.awt.Color;
 
 public class Pawn extends Piece {
 
-    public Pawn(Color color, Position position) {
-        super(color, position);
+    public Pawn(Color color, Position position , String rank) {
+        super(color, position , rank);
+        this.rank = rank;
     }
-
+   
     @Override
     public List<Position> possibleMoves(Board board) {
         List<Position> moves = new ArrayList<>();

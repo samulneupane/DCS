@@ -8,8 +8,9 @@ import java.awt.Color;
 
 public class Bishop extends Piece {
 
-    public Bishop(Color color, Position position) {
-        super(color, position);
+    public Bishop(Color color, Position position , String rank) {
+        super(color, position , rank);
+        rank = "Bishop";
     }
 
     @Override

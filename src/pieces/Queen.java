@@ -8,8 +8,9 @@ import java.awt.Color;
 
 public class Queen extends Piece {
 
-    public Queen(Color color, Position position) {
-        super(color, position);
+    public Queen(Color color, Position position, String rank) {
+        super(color, position, rank);
+        rank = "Queen";
     }
 
     @Override

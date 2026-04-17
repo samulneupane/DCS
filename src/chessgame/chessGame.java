@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.Stack;
 
 import pieces.Piece;
 import utils.Board;
@@ -111,5 +112,18 @@ public class chessGame extends JFrame {
                 frame.setVisible(true);
             }
         });
+    }
+}
+class Move {
+    Piece movedPiece;
+    Position from;
+    Position to;
+    Piece capturedPiece;
+
+    public Move(Piece movedPiece, Position from, Position to, Piece capturedPiece) {
+        this.movedPiece = movedPiece;
+        this.from = from;
+        this.to = to;
+        this.capturedPiece = capturedPiece;
     }
 }

@@ -2,8 +2,8 @@ package chessgame;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
-import java.util.Stack;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 import pieces.Piece;
 import utils.Board;
@@ -18,19 +18,13 @@ public class chessGame extends JFrame {
     private JMenu gameMenu;
     private JMenuItem newGameItem;
 
-    private JButton undoButton;
-
-    private Stack<Move> moveHistory = new Stack<>();
-
-    private Position selectedPosition = null;
-
     public chessGame() {
 
         board = new Board();
 
-        setTitle("Chess Game");
+        setTitle("8x8 Chess Board");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(700, 600);
+        setSize(600, 600);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
 
@@ -43,8 +37,6 @@ public class chessGame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 board = new Board();
-                moveHistory.clear();
-                selectedPosition = null;
                 drawBoard();
             }
         });
@@ -54,25 +46,16 @@ public class chessGame extends JFrame {
         setJMenuBar(menuBar);
 
         // ===== BOARD PANEL =====
-        boardPanel = new JPanel(new GridLayout(8, 8));
+        boardPanel = new JPanel();
+        boardPanel.setLayout(new GridLayout(8, 8));
         add(boardPanel, BorderLayout.CENTER);
-
-        // ===== UNDO BUTTON =====
-        undoButton = new JButton("Undo");
-        undoButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                undoLastMove();
-            }
-        });
-        add(undoButton, BorderLayout.SOUTH);
 
         drawBoard();
     }
 
-    // ===== DRAW BOARD =====
     private void drawBoard() {
         boardPanel.removeAll();
+
         boolean lightSquare = true;
 
         for (int row = 0; row < 8; row++) {
@@ -81,18 +64,9 @@ public class chessGame extends JFrame {
                 JPanel square = new JPanel();
                 square.setBackground(lightSquare ? Color.LIGHT_GRAY : Color.DARK_GRAY);
 
-                Position pos = new Position(row, col);
-                Piece piece = board.getPiece(pos);
-
+                Piece piece = board.getPiece(new Position(row, col));
                 JLabel label = new JLabel(getSymbol(piece), SwingConstants.CENTER);
-                label.setFont(new Font("Serif", Font.PLAIN, 48));
-
-                square.addMouseListener(new MouseAdapter() {
-                    @Override
-                    public void mouseClicked(MouseEvent e) {
-                        handleSquareClick(pos);
-                    }
-                });
+                label.setFont(new Font("Serif", Font.PLAIN, 52));
 
                 square.add(label);
                 boardPanel.add(square);
@@ -106,60 +80,10 @@ public class chessGame extends JFrame {
         boardPanel.repaint();
     }
 
-    // ===== HANDLE CLICK-TO-MOVE =====
-    private void handleSquareClick(Position pos) {
-        if (selectedPosition == null) {
-            Piece selected = board.getPiece(pos);
-            if (selected != null) {
-                selectedPosition = pos;
-            }
-        } else {
-            movePiece(selectedPosition, pos);
-            selectedPosition = null;
-        }
-    }
-
-    // ===== MOVE PIECE & RECORD =====
-    private void movePiece(Position from, Position to) {
-        Piece moving = board.getPiece(from);
-        if (moving == null) return;
-
-        Piece captured = board.getPiece(to);
-
-        Move move = new Move(moving, from, to, captured);
-        moveHistory.push(move);
-
-        // Move main piece
-        moving.setPosition(to);
-
-        // Remove captured piece
-        if (captured != null) {
-            captured.setPosition(null);
-        }
-
-        drawBoard();
-    }
-
-    // ===== UNDO LAST MOVE =====
-    private void undoLastMove() {
-        if (moveHistory.isEmpty()) return;
-
-        Move last = moveHistory.pop();
-
-        // Restore moved piece
-        last.movedPiece.setPosition(last.from);
-
-        // Restore captured piece
-        if (last.capturedPiece != null) {
-            last.capturedPiece.setPosition(last.to);
-        }
-
-        drawBoard();
-    }
-
-    // ===== PIECE SYMBOLS =====
     private String getSymbol(Piece piece) {
-        if (piece == null) return "";
+        if (piece == null) {
+            return "";
+        }
 
         switch (piece.getRank()) {
             case "Pawn":
@@ -187,20 +111,5 @@ public class chessGame extends JFrame {
                 frame.setVisible(true);
             }
         });
-    }
-}
-
-// ===== MOVE CLASS =====
-class Move {
-    Piece movedPiece;
-    Position from;
-    Position to;
-    Piece capturedPiece;
-
-    public Move(Piece movedPiece, Position from, Position to, Piece capturedPiece) {
-        this.movedPiece = movedPiece;
-        this.from = from;
-        this.to = to;
-        this.capturedPiece = capturedPiece;
     }
 }

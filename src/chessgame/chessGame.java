@@ -7,13 +7,17 @@ import java.awt.Color;
 import pieces.Piece;
 import utils.Board;
 import utils.Position;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 public class chessGame extends JFrame {
-  
-    Board board = new Board();
-    Position selecetedPosition = null;
+
+    private Board board;
+    private JPanel boardPanel;
+
+    private JMenuBar menuBar;
+    private JMenu gameMenu;
+    private JMenuItem newGameItem;
+
+    private Position selectedPosition = null;
 
     public chessGame() {
         // Set up the JFrame
@@ -48,32 +52,22 @@ public class chessGame extends JFrame {
                         Position clickedPos = new Position(r, c);
                         Piece clickedPiece = board.getPiece(clickedPos);
 
-                        if (selecetedPosition == null) {
-                            // No piece selected yet, select the clicked piece if it exists
+                        if (selectedPosition == null) {
                             if (clickedPiece != null) {
-                                selecetedPosition = clickedPos;
-                                System.out.println("Selected: " + clickedPiece.getRank() + " at " + clickedPos);
+                                selectedPosition = clickedPos;
                             }
                         } else {
-                            // A piece is already selected, attempt to move it to the clicked position
-                            Piece selectedPiece = board.getPiece(selecetedPosition);
-                            if (selectedPiece != null) {
-                                System.out.println("Attempting to move " + selectedPiece.getRank() + " from " + selecetedPosition + " to " + clickedPos);
-                                if(selectedPiece.possibleMoves(board).contains(clickedPos)) {
-                                    System.out.println("Move is valid!");
-                                    refreshBoard(selecetedPosition, clickedPos);
-                                } else {
-                                    System.out.println("Move is invalid!");
-                                }
-                                // Here you would add logic to validate the move and update the board state
-                                // For now, we just print the attempted move
-                            }
-                            selecetedPosition = null; // Deselect after attempting a move
-                        
+                            board.movePiece(selectedPosition, clickedPos);
+                            selectedPosition = null;
+                            drawBoard();
                         }
-                    
-                                    }
+                    }
                 });
+
+                square.add(label);
+                boardPanel.add(square);
+
+                lightSquare = !lightSquare;
             }
             lightSquare = !lightSquare;
         }
@@ -163,20 +157,13 @@ private String getSymbol(Piece piece) {
             return "";
         }
         switch (piece.getRank()) {
-            case "Pawn":
-                return piece.getColor() == piece.getColor().WHITE ? "♙" : "♟";
-            case "Rook":
-                return piece.getColor() == piece.getColor().WHITE ? "♖" : "♜";
-            case "Knight":
-                return piece.getColor() == piece.getColor().WHITE ? "♘" : "♞";
-            case "Bishop":
-                return piece.getColor() == piece.getColor().WHITE ? "♗" : "♝";
-            case "Queen":
-                return piece.getColor() == piece.getColor().WHITE ? "♕" : "♛";
-            case "King":
-                return piece.getColor() == piece.getColor().WHITE ? "♔" : "♚";
-            default:
-                return "";
+            case "Pawn":   return piece.getColor() == Color.WHITE ? "♙" : "♟";
+            case "Rook":   return piece.getColor() == Color.WHITE ? "♖" : "♜";
+            case "Knight": return piece.getColor() == Color.WHITE ? "♘" : "♞";
+            case "Bishop": return piece.getColor() == Color.WHITE ? "♗" : "♝";
+            case "Queen":  return piece.getColor() == Color.WHITE ? "♕" : "♛";
+            case "King":   return piece.getColor() == Color.WHITE ? "♔" : "♚";
+            default: return "";
         }
     }
     public static void main(String[] args) {

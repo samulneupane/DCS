@@ -79,11 +79,11 @@ public class chessGame extends JFrame {
         }
     }
 
-    /**
-     * Refreshes the board by moving a piece from one position to another and updating the UI.
-     * @param fromPosition The position of the piece to move
-     * @param toPosition The destination position for the piece
-     */
+    
+     //s the board by moving a piece from one position to another and updating the UI.
+    // @param fromPosition The position of the piece to move
+    // @param toPosition The destination position for the piece
+    
     public void refreshBoard(Position fromPosition, Position toPosition) {
         // Use board's movePiece to handle all movement logic and validation
         if (board.movePiece(fromPosition, toPosition)) {
@@ -152,7 +152,7 @@ public class chessGame extends JFrame {
         revalidate();
         repaint();
     }
-
+     
     // draws each piece on the board using unicode chess symbols
 private String getSymbol(Piece piece) {
         if (piece == null) {

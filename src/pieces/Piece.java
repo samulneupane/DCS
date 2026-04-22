@@ -24,8 +24,9 @@ public abstract class Piece {
     public Position getPosition(){
         return position;
     }
-    public void setPosition(Position position) {
+    public int[][] setPosition(Position position) {
         this.position = position;
+        return new int[][]{{position.getRow()}, {position.getColumn()}};
     }
     public String getRank() {
         return rank;

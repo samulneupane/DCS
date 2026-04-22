@@ -74,9 +74,9 @@ public class Board {
         
         // Checking bounds
         if (!isValidPosition(from) || !isValidPosition(to)) {
-        System.out.println("Invalid move: position out of bounds.");
-        return false;
-    }
+            System.out.println("Invalid move: position out of bounds.");
+            return false;
+        }
 
         Piece movingPiece = getPiece(from);
     
@@ -95,17 +95,25 @@ public class Board {
 
         // Capture opponent piece if present
         if (targetPiece != null) {
-            capturedPieces.add(targetPiece);
-            System.out.println(targetPiece.getColor() + " " + targetPiece.getSymbol() + " captured!");
+            capturePiece(targetPiece);
         }
 
-    //finally Moving the piece
-    board[to.getRow()][to.getColumn()] = movingPiece;
-    board[from.getRow()][from.getColumn()] = null;
-    movingPiece.setPosition(to); // update piece's internal position
+        // Move the piece to the new position
+        board[to.getRow()][to.getColumn()] = movingPiece;
+        board[from.getRow()][from.getColumn()] = null;
+        movingPiece.setPosition(to); // update piece's internal position
 
-    return true;
-}
+        return true;
+    }
+
+    /**
+     * Handles the capture of a piece and adds it to captured pieces list
+     * @param capturedPiece The piece being captured
+     */
+    private void capturePiece(Piece capturedPiece) {
+        capturedPieces.add(capturedPiece);
+        System.out.println("Captured " + capturedPiece.getColor() + " " + capturedPiece.getRank() + "!");
+    }
     
 
 

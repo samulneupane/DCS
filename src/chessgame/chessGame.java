@@ -2,31 +2,34 @@ package chessgame;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import java.awt.event.*;
 
 import pieces.Piece;
 import utils.Board;
 import utils.Position;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 public class chessGame extends JFrame {
-  
-    Board board = new Board();
-    Position selecetedPosition = null;
+
+    private Board board;
+    private JPanel boardPanel;
+
+    private JMenuBar menuBar;
+    private JMenu gameMenu;
+    private JMenuItem newGameItem;
+
+    private Position selectedPosition = null;
 
     public chessGame() {
 
         board = new Board();
 
-        setTitle("8x8 Chess Board");
+        setTitle("Chess Game");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(600, 600);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
 
-        // ===== MENU BAR =====
+        // ===== MENU BAR (EXTRA FEATURE) =====
         menuBar = new JMenuBar();
         gameMenu = new JMenu("Game");
         newGameItem = new JMenuItem("New Game");
@@ -35,6 +38,7 @@ public class chessGame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 board = new Board();
+                selectedPosition = null;
                 drawBoard();
             }
         });
@@ -44,8 +48,7 @@ public class chessGame extends JFrame {
         setJMenuBar(menuBar);
 
         // ===== BOARD PANEL =====
-        boardPanel = new JPanel();
-        boardPanel.setLayout(new GridLayout(8, 8));
+        boardPanel = new JPanel(new GridLayout(8, 8));
         add(boardPanel, BorderLayout.CENTER);
 
         drawBoard();
@@ -53,7 +56,6 @@ public class chessGame extends JFrame {
 
     private void drawBoard() {
         boardPanel.removeAll();
-
         boolean lightSquare = true;
 
         for (int row = 0; row < 8; row++) {
@@ -62,19 +64,14 @@ public class chessGame extends JFrame {
                 JPanel square = new JPanel();
                 square.setBackground(lightSquare ? Color.LIGHT_GRAY : Color.DARK_GRAY);
 
-                Piece piece = board.getPiece(new Position(row, col));
+                Position pos = new Position(row, col);
+                Piece piece = board.getPiece(pos);
+
                 JLabel label = new JLabel(getSymbol(piece), SwingConstants.CENTER);
                 label.setFont(new Font("Serif", Font.PLAIN, 52));
 
-                square.add(label);
-                boardPanel.add(square);
-
-                lightSquare = !lightSquare;
-       
-                
-               // mouse listener being added for each square developed. 
-               final int r = row;
-               final int c= col;
+                final int r = row;
+                final int c = col;
 
                 square.addMouseListener(new MouseAdapter() {
                     @Override
@@ -82,32 +79,22 @@ public class chessGame extends JFrame {
                         Position clickedPos = new Position(r, c);
                         Piece clickedPiece = board.getPiece(clickedPos);
 
-                        if (selecetedPosition == null) {
-                            // No piece selected yet, select the clicked piece if it exists
+                        if (selectedPosition == null) {
                             if (clickedPiece != null) {
-                                selecetedPosition = clickedPos;
-                                System.out.println("Selected: " + clickedPiece.getRank() + " at " + clickedPos);
+                                selectedPosition = clickedPos;
                             }
                         } else {
-                            // A piece is already selected, attempt to move it to the clicked position
-                            Piece selectedPiece = board.getPiece(selecetedPosition);
-                            if (selectedPiece != null) {
-                                System.out.println("Attempting to move " + selectedPiece.getRank() + " from " + selecetedPosition + " to " + clickedPos);
-                                if(selectedPiece.possibleMoves(board).contains(clickedPos)) {
-                                    System.out.println("Move is valid!");
-                                    refreshBoard(selecetedPosition, clickedPos);
-                                } else {
-                                    System.out.println("Move is invalid!");
-                                }
-                                // Here you would add logic to validate the move and update the board state
-                                // For now, we just print the attempted move
-                            }
-                            selecetedPosition = null; // Deselect after attempting a move
-                        
+                            board.movePiece(selectedPosition, clickedPos);
+                            selectedPosition = null;
+                            drawBoard();
                         }
-                    
-                                    }
+                    }
                 });
+
+                square.add(label);
+                boardPanel.add(square);
+
+                lightSquare = !lightSquare;
             }
             lightSquare = !lightSquare;
         }
@@ -117,25 +104,16 @@ public class chessGame extends JFrame {
     }
 
     private String getSymbol(Piece piece) {
-        if (piece == null) {
-            return "";
-        }
+        if (piece == null) return "";
 
         switch (piece.getRank()) {
-            case "Pawn":
-                return piece.getColor() == piece.getColor().WHITE ? "♙" : "♟";
-            case "Rook":
-                return piece.getColor() == piece.getColor().WHITE ? "♖" : "♜";
-            case "Knight":
-                return piece.getColor() == piece.getColor().WHITE ? "♘" : "♞";
-            case "Bishop":
-                return piece.getColor() == piece.getColor().WHITE ? "♗" : "♝";
-            case "Queen":
-                return piece.getColor() == piece.getColor().WHITE ? "♕" : "♛";
-            case "King":
-                return piece.getColor() == piece.getColor().WHITE ? "♔" : "♚";
-            default:
-                return "";
+            case "Pawn":   return piece.getColor() == Color.WHITE ? "♙" : "♟";
+            case "Rook":   return piece.getColor() == Color.WHITE ? "♖" : "♜";
+            case "Knight": return piece.getColor() == Color.WHITE ? "♘" : "♞";
+            case "Bishop": return piece.getColor() == Color.WHITE ? "♗" : "♝";
+            case "Queen":  return piece.getColor() == Color.WHITE ? "♕" : "♛";
+            case "King":   return piece.getColor() == Color.WHITE ? "♔" : "♚";
+            default: return "";
         }
     }
 

@@ -5,14 +5,15 @@ import utils.Position;
 import java.util.ArrayList;
 import java.util.List;
 import java.awt.Color;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Pawn extends Piece {
 
     public Pawn(Color color, Position position , String rank) {
         super(color, position , rank);
         this.rank = rank;
-    }
-   
+    }   
     @Override
     public List<Position> possibleMoves(Board board) {
         List<Position> moves = new ArrayList<>();

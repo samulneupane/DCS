@@ -8,15 +8,13 @@ import java.awt.event.ActionEvent;
 import pieces.Piece;
 import utils.Board;
 import utils.Position;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class chessGame extends JFrame {
-
-    private Board board;
-    private JPanel boardPanel;
-
-    private JMenuBar menuBar;
-    private JMenu gameMenu;
-    private JMenuItem newGameItem;
+  
+    Board board = new Board();
+    Position selecetedPosition = null;
 
     public chessGame() {
 
@@ -72,6 +70,44 @@ public class chessGame extends JFrame {
                 boardPanel.add(square);
 
                 lightSquare = !lightSquare;
+       
+                
+               // mouse listener being added for each square developed. 
+               final int r = row;
+               final int c= col;
+
+                square.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        Position clickedPos = new Position(r, c);
+                        Piece clickedPiece = board.getPiece(clickedPos);
+
+                        if (selecetedPosition == null) {
+                            // No piece selected yet, select the clicked piece if it exists
+                            if (clickedPiece != null) {
+                                selecetedPosition = clickedPos;
+                                System.out.println("Selected: " + clickedPiece.getRank() + " at " + clickedPos);
+                            }
+                        } else {
+                            // A piece is already selected, attempt to move it to the clicked position
+                            Piece selectedPiece = board.getPiece(selecetedPosition);
+                            if (selectedPiece != null) {
+                                System.out.println("Attempting to move " + selectedPiece.getRank() + " from " + selecetedPosition + " to " + clickedPos);
+                                if(selectedPiece.possibleMoves(board).contains(clickedPos)) {
+                                    System.out.println("Move is valid!");
+                                    refreshBoard(selecetedPosition, clickedPos);
+                                } else {
+                                    System.out.println("Move is invalid!");
+                                }
+                                // Here you would add logic to validate the move and update the board state
+                                // For now, we just print the attempted move
+                            }
+                            selecetedPosition = null; // Deselect after attempting a move
+                        
+                        }
+                    
+                                    }
+                });
             }
             lightSquare = !lightSquare;
         }

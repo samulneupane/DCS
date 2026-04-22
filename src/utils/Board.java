@@ -73,8 +73,7 @@ public class Board {
     }
 
     //to move a piece
-    public boolean movePiece(Position from, Position to) {
-        
+    public Boolean movePiece(Position from, Position to) {
         // Checking bounds
         if (!isValidPosition(from) || !isValidPosition(to)) {
             System.out.println("Invalid move: position out of bounds.");
@@ -82,7 +81,6 @@ public class Board {
         }
 
         Piece movingPiece = getPiece(from);
-    
         if (movingPiece == null) {
             System.out.println("Invalid move: no piece at " + from.toString());
             return false;
@@ -100,25 +98,28 @@ public class Board {
         if (targetPiece != null) {
             capturedPieces.add(targetPiece);
             System.out.println(targetPiece.getColor() + " " + targetPiece.getSymbol() + " captured!");
-           //If King is captured,declare winner and terminate game
+            
+            // If King is captured, declare winner and terminate game
             if (targetPiece instanceof King) {
                 String winner = movingPiece.getColor().equals(Color.WHITE) ? "White" : "Black";
-                // move the piece and update the board
+                // Move the piece and update the board
                 board[to.getRow()][to.getColumn()] = movingPiece;
                 board[from.getRow()][from.getColumn()] = null;
                 movingPiece.setPosition(to);
                 // Show winning message
-                JOptionPane.showMessageDialog(null, winner + " The King was captured.! you are a winner!");
+                JOptionPane.showMessageDialog(null, winner + " wins! The King was captured.");
                 System.exit(0);
+            }
         }
 
-        // Move the piece to the new position
+        // Move the piece to the new position (for both captures and normal moves)
         board[to.getRow()][to.getColumn()] = movingPiece;
         board[from.getRow()][from.getColumn()] = null;
         movingPiece.setPosition(to); // update piece's internal position
 
         return true;
     }
+
 
     /**
      * Handles the capture of a piece and adds it to captured pieces list

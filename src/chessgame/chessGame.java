@@ -2,8 +2,7 @@ package chessgame;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import java.awt.Color;
 
 import pieces.Piece;
 import utils.Board;
@@ -17,58 +16,25 @@ public class chessGame extends JFrame {
     Position selecetedPosition = null;
 
     public chessGame() {
-
-        board = new Board();
-
+        // Set up the JFrame
         setTitle("8x8 Chess Board");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(new GridLayout(8, 8));
         setSize(600, 600);
         setLocationRelativeTo(null);
-        setLayout(new BorderLayout());
 
-        // ===== MENU BAR =====
-        menuBar = new JMenuBar();
-        gameMenu = new JMenu("Game");
-        newGameItem = new JMenuItem("New Game");
 
-        newGameItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                board = new Board();
-                drawBoard();
-            }
-        });
-
-        gameMenu.add(newGameItem);
-        menuBar.add(gameMenu);
-        setJMenuBar(menuBar);
-
-        // ===== BOARD PANEL =====
-        boardPanel = new JPanel();
-        boardPanel.setLayout(new GridLayout(8, 8));
-        add(boardPanel, BorderLayout.CENTER);
-
-        drawBoard();
-    }
-
-    private void drawBoard() {
-        boardPanel.removeAll();
-
+        // Create chessboard squares and add pieces, alternating colors.
         boolean lightSquare = true;
-
         for (int row = 0; row < 8; row++) {
             for (int col = 0; col < 8; col++) {
-
                 JPanel square = new JPanel();
                 square.setBackground(lightSquare ? Color.LIGHT_GRAY : Color.DARK_GRAY);
-
                 Piece piece = board.getPiece(new Position(row, col));
                 JLabel label = new JLabel(getSymbol(piece), SwingConstants.CENTER);
-                label.setFont(new Font("Serif", Font.PLAIN, 52));
-
-                square.add(label);
-                boardPanel.add(square);
-
+                label.setFont(new Font("Serif", Font.PLAIN, 52));    
+                square.add(label);                
+                add(square);
                 lightSquare = !lightSquare;
        
                 
@@ -119,10 +85,14 @@ public class chessGame extends JFrame {
      * @param toPosition The destination position for the piece
      */
     public void refreshBoard(Position fromPosition, Position toPosition) {
-        // Use board's movePiece to handle all movement logic and validation
+        // Move the piece on the board using the Board's movePiece function
         if (board.movePiece(fromPosition, toPosition)) {
+            System.out.println("Piece successfully moved to " + toPosition);
+            
             // Rebuild the UI to reflect the new board state
             rebuildBoardUI();
+        } else {
+            System.out.println("Failed to move piece from " + fromPosition + " to " + toPosition);
         }
     }
 
@@ -192,7 +162,6 @@ private String getSymbol(Piece piece) {
         if (piece == null) {
             return "";
         }
-
         switch (piece.getRank()) {
             case "Pawn":
                 return piece.getColor() == piece.getColor().WHITE ? "♙" : "♟";
@@ -210,14 +179,11 @@ private String getSymbol(Piece piece) {
                 return "";
         }
     }
-
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                chessGame frame = new chessGame();
-                frame.setVisible(true);
-            }
+        SwingUtilities.invokeLater(() -> {
+            chessGame frame = new chessGame();
+            frame.setVisible(true);
         });
     }
 }
+

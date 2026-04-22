@@ -5,8 +5,7 @@ import utils.Position;
 import java.util.ArrayList;
 import java.util.List;
 import java.awt.Color;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+
 
 public class Pawn extends Piece {
 

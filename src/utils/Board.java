@@ -67,9 +67,9 @@ public class Board {
         return board[row][col];
     }
 
-    // Move a piece
-    public boolean movePiece(Position from, Position to) {
-
+    //to move a piece
+    public Boolean movePiece(Position from, Position to) {
+        // Checking bounds
         if (!isValidPosition(from) || !isValidPosition(to)) {
             return false;
         }
@@ -90,25 +90,22 @@ public class Board {
         // Capture opponent piece
         if (targetPiece != null) {
             capturedPieces.add(targetPiece);
-
-            // If King is captured
+            System.out.println(targetPiece.getColor() + " " + targetPiece.getSymbol() + " captured!");
+            
+            // If King is captured, declare winner and terminate game
             if (targetPiece instanceof King) {
-                String winner =
-                        movingPiece.getColor().equals(Color.WHITE) ? "White" : "Black";
-
+                String winner = movingPiece.getColor().equals(Color.WHITE) ? "White" : "Black";
+                // Move the piece and update the board
                 board[to.getRow()][to.getColumn()] = movingPiece;
                 board[from.getRow()][from.getColumn()] = null;
                 movingPiece.setPosition(to);
-
-                JOptionPane.showMessageDialog(
-                        null,
-                        winner + " wins! The king was captured!"
-                );
+                // Show winning message
+                JOptionPane.showMessageDialog(null, winner + " wins! The King was captured.");
                 System.exit(0);
             }
         }
 
-        // Final move
+        // Move the piece to the new position (for both captures and normal moves)
         board[to.getRow()][to.getColumn()] = movingPiece;
         board[from.getRow()][from.getColumn()] = null;
         movingPiece.setPosition(to);
@@ -116,10 +113,14 @@ public class Board {
         return true;
     }
 
-    // Check if position is inside board
-    public boolean isValidPosition(Position pos) {
-        return pos.getRow() >= 0 && pos.getRow() < 8 &&
-               pos.getColumn() >= 0 && pos.getColumn() < 8;
+
+    /**
+     * Handles the capture of a piece and adds it to captured pieces list
+     * @param capturedPiece The piece being captured
+     */
+    private void capturePiece(Piece capturedPiece) {
+        capturedPieces.add(capturedPiece);
+        System.out.println("Captured " + capturedPiece.getColor() + " " + capturedPiece.getRank() + "!");
     }
 
     public boolean isInsideBoard(Position pos) {

@@ -16,6 +16,8 @@ public class chessGame extends JFrame {
     private JMenuBar menuBar;
     private JMenu gameMenu;
     private JMenuItem newGameItem;
+    private boolean isAIMode = false;
+
 
     private Position selectedPosition = null;
     private Color currentTurn = Color.WHITE;
@@ -65,6 +67,33 @@ public class chessGame extends JFrame {
 
         menuBar.add(gameMenu);
         setJMenuBar(menuBar);
+        
+        //AI mode
+        JMenu modeMenu = new JMenu("Mode");
+        JRadioButtonMenuItem vsHuman = new JRadioButtonMenuItem("vs Human", true);
+        JRadioButtonMenuItem vsAI = new JRadioButtonMenuItem("vs AI", false);
+
+        ButtonGroup modeGroup = new ButtonGroup();
+        modeGroup.add(vsHuman);
+        modeGroup.add(vsAI);
+
+        vsHuman.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                isAIMode = false;
+            }
+        });
+
+        vsAI.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                isAIMode = true;
+            }
+        });
+
+        modeMenu.add(vsHuman);
+        modeMenu.add(vsAI);
+        menuBar.add(modeMenu);
 
         // ===== BOARD PANEL =====
         boardPanel = new JPanel(new GridLayout(8, 8));

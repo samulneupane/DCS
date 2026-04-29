@@ -20,6 +20,8 @@ public class chessGame extends JFrame {
     private Position selectedPosition = null;
     private Color currentTurn = Color.WHITE;
     private JLabel statusLabel;
+    private Color lightSquareColor = new Color(0xEEEED2); // chess.com light
+    private Color darkSquareColor = new Color(0x769656);  // chess.com dark
 
 
     public chessGame() {
@@ -70,7 +72,7 @@ public class chessGame extends JFrame {
             for (int col = 0; col < 8; col++) {
 
                 JPanel square = new JPanel(new BorderLayout());
-                square.setBackground(lightSquare ? Color.LIGHT_GRAY : Color.DARK_GRAY);
+                square.setBackground(lightSquare ? lightSquareColor : darkSquareColor);
 
                 //if selected highlight
                 if (selectedPosition != null && selectedPosition.getRow() == row && selectedPosition.getColumn() == col) {

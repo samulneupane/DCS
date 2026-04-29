@@ -96,11 +96,16 @@ public class chessGame extends JFrame {
                                 // clicked own piece — switch selection
                                 selectedPosition = clickedPos;
                             } else {
-                                board.movePiece(selectedPosition, clickedPos);
-                                selectedPosition = null;
-                                currentTurn = currentTurn.equals(Color.WHITE) ? Color.BLACK : Color.WHITE;
-                                statusLabel.setText(currentTurn.equals(Color.WHITE) ? "White's Turn" : "Black's Turn");
-                                drawBoard();
+                                Piece selectedPiece = board.getPiece(selectedPosition);
+                                if (selectedPiece.possibleMoves(board).contains(clickedPos)) {
+                                    board.movePiece(selectedPosition, clickedPos);
+                                    selectedPosition = null;
+                                    currentTurn = currentTurn.equals(Color.WHITE) ? Color.BLACK : Color.WHITE;
+                                    statusLabel.setText(currentTurn.equals(Color.WHITE) ? "White's Turn" : "Black's Turn");
+                                    drawBoard();
+                                } else {
+                                    selectedPosition = null; // invalid move, deselect
+                                }
                             }
                         }
                     }

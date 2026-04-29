@@ -24,6 +24,9 @@ public class chessGame extends JFrame {
     private JLabel statusLabel;
     private Color lightSquareColor = new Color(0xEEEED2); // chess.com light
     private Color darkSquareColor = new Color(0x769656);  // chess.com dark
+    
+    private boolean isAIMode = false;
+    private AIPlayer aiPlayer = new AIPlayer(Color.BLACK);
 
 
     public chessGame() {

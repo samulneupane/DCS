@@ -33,4 +33,10 @@ public void makeMove(Board board) {
             }
         }
     }
+}
 
+// pick a random move and execute it
+if (!allMoves.isEmpty()) {
+    Position[] move = allMoves.get(random.nextInt(allMoves.size()));
+    board.movePiece(move[0], move[1]);
+}

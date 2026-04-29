@@ -82,7 +82,7 @@ public class chessGame extends JFrame {
                         Piece clickedPiece = board.getPiece(clickedPos);
 
                         if (selectedPosition == null) {
-                            if (clickedPiece != null) {
+                            if (clickedPiece != null && clickedPiece.getColor().equals(currentTurn)) {
                                 selectedPosition = clickedPos;
                             }
                         } else {

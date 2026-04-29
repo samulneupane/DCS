@@ -17,26 +17,26 @@ public class AIPlayer {
         this.color = color;
         this.random = new Random();
     }
-}
 
-public void makeMove(Board board) {
-    List<Position[]> allMoves = new ArrayList<>();
+    public void makeMove(Board board) {
+        List<Position[]> allMoves = new ArrayList<>();
 
-    // collect all possible moves for all black pieces
-    for (int r = 0; r < 8; r++) {
-        for (int c = 0; c < 8; c++) {
-            Piece piece = board.getPiece(new Position(r, c));
-            if (piece != null && piece.getColor().equals(color)) {
-                for (Position to : piece.possibleMoves(board)) {
-                    allMoves.add(new Position[]{new Position(r, c), to});
+        // collect all possible moves for all black pieces
+        for (int r = 0; r < 8; r++) {
+            for (int c = 0; c < 8; c++) {
+                Piece piece = board.getPiece(new Position(r, c));
+                if (piece != null && piece.getColor().equals(color)) {
+                    for (Position to : piece.possibleMoves(board)) {
+                        allMoves.add(new Position[]{new Position(r, c), to});
+                    }
                 }
             }
         }
-    }
-}
 
-// pick a random move and execute it
-if (!allMoves.isEmpty()) {
-    Position[] move = allMoves.get(random.nextInt(allMoves.size()));
-    board.movePiece(move[0], move[1]);
+        // pick a random move and execute it
+        if (!allMoves.isEmpty()) {
+            Position[] move = allMoves.get(random.nextInt(allMoves.size()));
+            board.movePiece(move[0], move[1]);
+        }
+    }
 }

@@ -117,12 +117,12 @@ public class chessGame extends JFrame {
         if (piece == null) return "";
 
         switch (piece.getRank()) {
-            case "Pawn":   return piece.getColor() == Color.WHITE ? "♙" : "♟";
-            case "Rook":   return piece.getColor() == Color.WHITE ? "♖" : "♜";
-            case "Knight": return piece.getColor() == Color.WHITE ? "♘" : "♞";
-            case "Bishop": return piece.getColor() == Color.WHITE ? "♗" : "♝";
-            case "Queen":  return piece.getColor() == Color.WHITE ? "♕" : "♛";
-            case "King":   return piece.getColor() == Color.WHITE ? "♔" : "♚";
+            case "Pawn":   return piece.getColor().equals(Color.WHITE) ? "♙" : "♟";
+            case "Rook":   return piece.getColor().equals(Color.WHITE) ? "♖" : "♜";
+            case "Knight": return piece.getColor().equals(Color.WHITE) ? "♘" : "♞";
+            case "Bishop": return piece.getColor().equals(Color.WHITE) ? "♗" : "♝";
+            case "Queen":  return piece.getColor().equals(Color.WHITE) ? "♕" : "♛";
+            case "King":   return piece.getColor().equals(Color.WHITE) ? "♔" : "♚";
             default: return "";
         }
     }

@@ -52,6 +52,15 @@ public class chessGame extends JFrame {
                 currentTurn = Color.WHITE;  
         statusLabel.setText("White's Turn");
                 drawBoard();
+
+
+            // AI makes a move if in AI mode
+        if (isAIMode && currentTurn.equals(Color.BLACK)) {
+            aiPlayer.makeMove(board);
+            currentTurn = Color.WHITE;
+            statusLabel.setText("White's Turn");
+            drawBoard();
+}
             }
         });
 

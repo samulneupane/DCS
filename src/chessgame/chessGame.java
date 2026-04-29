@@ -14,6 +14,9 @@ public class chessGame extends JFrame {
   
     Board board = new Board();
     Position selecetedPosition = null;
+    Color currentTurn = Color.WHITE; // White always goes first
+
+  
 
     public chessGame() {
         // Set up the JFrame
@@ -22,7 +25,12 @@ public class chessGame extends JFrame {
         setLayout(new GridLayout(8, 8));
         setSize(600, 600);
         setLocationRelativeTo(null);
+        buildBoardUI();
+    }
 
+  //Builds or rebuilds the full board UI from scratch. 
+    private void buildBoardUI() {
+        getContentPane().removeAll()
 
         // Create chessboard squares and add pieces, alternating colors.
         boolean lightSquare = true;

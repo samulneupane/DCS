@@ -42,6 +42,8 @@ public class chessGame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 board = new Board();
                 selectedPosition = null;
+                currentTurn = Color.WHITE;  
+        statusLabel.setText("White's Turn");
                 drawBoard();
             }
         });

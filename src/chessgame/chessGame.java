@@ -69,7 +69,7 @@ public class chessGame extends JFrame {
         for (int row = 0; row < 8; row++) {
             for (int col = 0; col < 8; col++) {
 
-                JPanel square = new JPanel();
+                JPanel square = new JPanel(new BorderLayout());
                 square.setBackground(lightSquare ? Color.LIGHT_GRAY : Color.DARK_GRAY);
 
                 Position pos = new Position(row, col);
@@ -77,11 +77,12 @@ public class chessGame extends JFrame {
 
                 JLabel label = new JLabel(getSymbol(piece), SwingConstants.CENTER);
                 label.setFont(new Font("Serif", Font.PLAIN, 52));
+                label.setOpaque(false);
 
                 final int r = row;
                 final int c = col;
 
-                square.addMouseListener(new MouseAdapter() {
+                MouseAdapter clickHandler = new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
                         Position clickedPos = new Position(r, c);
@@ -115,16 +116,19 @@ public class chessGame extends JFrame {
                                         JOptionPane.showMessageDialog(null, winner + " wins by checkmate!");
                                         System.exit(0);
                                     }
-                                    
+
                                 } else {
                                     selectedPosition = null; // invalid move, deselect
                                 }
                             }
                         }
                     }
-                });
+                };
+                
+                square.addMouseListener(clickHandler);
+                label.addMouseListener(clickHandler);
 
-                square.add(label);
+                square.add(label, BorderLayout.CENTER);
                 boardPanel.add(square);
 
                 lightSquare = !lightSquare;

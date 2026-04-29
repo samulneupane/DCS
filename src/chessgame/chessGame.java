@@ -101,7 +101,12 @@ public class chessGame extends JFrame {
                                     board.movePiece(selectedPosition, clickedPos);
                                     selectedPosition = null;
                                     currentTurn = currentTurn.equals(Color.WHITE) ? Color.BLACK : Color.WHITE;
-                                    statusLabel.setText(currentTurn.equals(Color.WHITE) ? "White's Turn" : "Black's Turn");
+                                    
+                                    if (board.isInCheck(currentTurn)) {
+                                        statusLabel.setText(currentTurn.equals(Color.WHITE) ? "White is in Check!" : "Black is in Check!");
+                                    } else {
+                                        statusLabel.setText(currentTurn.equals(Color.WHITE) ? "White's Turn" : "Black's Turn");
+                                    }
                                     drawBoard();
                                 } else {
                                     selectedPosition = null; // invalid move, deselect

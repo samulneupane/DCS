@@ -27,3 +27,11 @@ samul neupane	(bnv36)
 ### Example Move
 E2 E4
 This moves a pawn from E2 to E4.
+
+**How to Compile
+**Make sure you are in the project root directory (DCS/), then run:
+bashjavac -d src/out src/chessgame/*.java src/pieces/*.java src/utils/*.java
+Then copy the piece images to the output folder:
+bashcp -r src/resources src/out/
+How to Run
+bashjava -cp src/out chessgame.chessGame

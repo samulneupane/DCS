@@ -154,4 +154,37 @@ public boolean isInCheck(Color color) {
     }
     return false;
 }
+
+// Check if the given color is in checkmate
+public boolean isCheckmate(Color color) {
+    if (!isInCheck(color)) return false;
+
+    // Try every possible move for every piece of this color
+    for (int r = 0; r < 8; r++) {
+        for (int c = 0; c < 8; c++) {
+            Piece p = board[r][c];
+            if (p != null && p.getColor().equals(color)) {
+                for (Position to : p.possibleMoves(this)) {
+                    // Simulate the move
+                    Piece captured = board[to.getRow()][to.getColumn()];
+                    Position from = p.getPosition();
+
+                    board[to.getRow()][to.getColumn()] = p;
+                    board[from.getRow()][from.getColumn()] = null;
+                    p.setPosition(to);
+
+                    boolean stillInCheck = isInCheck(color);
+
+                    // Undo the move
+                    board[from.getRow()][from.getColumn()] = p;
+                    board[to.getRow()][to.getColumn()] = captured;
+                    p.setPosition(from);
+
+                    if (!stillInCheck) return false; // found a way out
+                }
+            }
+        }
+    }
+    return true; // no way out
+}
 }

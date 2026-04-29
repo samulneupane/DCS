@@ -88,6 +88,7 @@ public class chessGame extends JFrame {
                         } else {
                             board.movePiece(selectedPosition, clickedPos);
                             selectedPosition = null;
+                            currentTurn = currentTurn.equals(Color.WHITE) ? Color.BLACK : Color.WHITE;
                             drawBoard();
                         }
                     }

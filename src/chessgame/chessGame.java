@@ -108,6 +108,14 @@ public class chessGame extends JFrame {
                                         statusLabel.setText(currentTurn.equals(Color.WHITE) ? "White's Turn" : "Black's Turn");
                                     }
                                     drawBoard();
+
+                                    if (board.isCheckmate(currentTurn)) {
+                                        String winner = currentTurn.equals(Color.WHITE) ? "Black" : "White";
+                                        drawBoard();
+                                        JOptionPane.showMessageDialog(null, winner + " wins by checkmate!");
+                                        System.exit(0);
+                                    }
+                                    
                                 } else {
                                     selectedPosition = null; // invalid move, deselect
                                 }

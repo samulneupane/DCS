@@ -81,9 +81,10 @@ public class chessGame extends JFrame {
                 Position pos = new Position(row, col);
                 Piece piece = board.getPiece(pos);
 
-                JLabel label = new JLabel(getSymbol(piece), SwingConstants.CENTER);
-                label.setFont(new Font("Serif", Font.PLAIN, 52));
+                JLabel label = new JLabel(SwingConstants.CENTER);
                 label.setOpaque(false);
+                ImageIcon icon = getPieceImage(piece, 60);
+                if (icon != null) label.setIcon(icon);
 
                 final int r = row;
                 final int c = col;
@@ -149,18 +150,30 @@ public class chessGame extends JFrame {
         boardPanel.repaint();
     }
 
-    private String getSymbol(Piece piece) {
-        if (piece == null) return "";
-
+    private ImageIcon getPieceImage(Piece piece, int size) {
+        if (piece == null) return null;
+    
+        String color = piece.getColor().equals(Color.WHITE) ? "w" : "b";
+        String rank;
         switch (piece.getRank()) {
-            case "Pawn":   return piece.getColor().equals(Color.WHITE) ? "♙" : "♟";
-            case "Rook":   return piece.getColor().equals(Color.WHITE) ? "♖" : "♜";
-            case "Knight": return piece.getColor().equals(Color.WHITE) ? "♘" : "♞";
-            case "Bishop": return piece.getColor().equals(Color.WHITE) ? "♗" : "♝";
-            case "Queen":  return piece.getColor().equals(Color.WHITE) ? "♕" : "♛";
-            case "King":   return piece.getColor().equals(Color.WHITE) ? "♔" : "♚";
-            default: return "";
+            case "Pawn":   rank = "P"; break;
+            case "Rook":   rank = "R"; break;
+            case "Knight": rank = "N"; break;
+            case "Bishop": rank = "B"; break;
+            case "Queen":  rank = "Q"; break;
+            case "King":   rank = "K"; break;
+            default: return null;
         }
+    
+        String path = "/resources/pieces/" + color + rank + ".png";
+        java.net.URL imgURL = getClass().getResource(path);
+        if (imgURL == null) {
+            System.out.println("Image not found: " + path);
+            return null;
+        }
+        ImageIcon icon = new ImageIcon(imgURL);
+        Image scaled = icon.getImage().getScaledInstance(size, size, Image.SCALE_SMOOTH);
+        return new ImageIcon(scaled);
     }
 
     public static void main(String[] args) {

@@ -51,6 +51,18 @@ public class chessGame extends JFrame {
         });
 
         gameMenu.add(newGameItem);
+        
+        JMenu settingsMenu = new JMenu("Settings");
+        JMenuItem openSettings = new JMenuItem("Open Settings");
+        openSettings.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                showSettingsDialog();
+            }
+        });
+        settingsMenu.add(openSettings);
+        menuBar.add(settingsMenu);
+
         menuBar.add(gameMenu);
         setJMenuBar(menuBar);
 
@@ -178,6 +190,84 @@ public class chessGame extends JFrame {
         return new ImageIcon(scaled);
     }
 
+    private void showSettingsDialog() {
+        JDialog dialog = new JDialog(this, "Settings", true);
+        dialog.setSize(300, 250);
+        dialog.setLocationRelativeTo(this);
+        dialog.setLayout(new BorderLayout());
+    
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
+    
+        // Theme selection
+        JLabel themeLabel = new JLabel("Board Theme:");
+        ButtonGroup themeGroup = new ButtonGroup();
+        JRadioButton chesscom = new JRadioButton("Chess.com");
+        JRadioButton wooden = new JRadioButton("Wooden");
+        JRadioButton classic = new JRadioButton("Classic");
+        themeGroup.add(chesscom);
+        themeGroup.add(wooden);
+        themeGroup.add(classic);
+        chesscom.setSelected(true); // default
+    
+        // Size selection
+        JLabel sizeLabel = new JLabel("Board Size:");
+        ButtonGroup sizeGroup = new ButtonGroup();
+        JRadioButton small = new JRadioButton("Small (480x480)");
+        JRadioButton medium = new JRadioButton("Medium (600x600)");
+        JRadioButton large = new JRadioButton("Large (720x720)");
+        sizeGroup.add(small);
+        sizeGroup.add(medium);
+        sizeGroup.add(large);
+        medium.setSelected(true); // default
+    
+        panel.add(themeLabel);
+        panel.add(chesscom);
+        panel.add(wooden);
+        panel.add(classic);
+        panel.add(Box.createVerticalStrut(10));
+        panel.add(sizeLabel);
+        panel.add(small);
+        panel.add(medium);
+        panel.add(large);
+    
+        // Apply button
+        JButton applyBtn = new JButton("Apply");
+        applyBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Apply theme
+                if (chesscom.isSelected()) {
+                    lightSquareColor = new Color(0xEEEED2);
+                    darkSquareColor = new Color(0x769656);
+                } else if (wooden.isSelected()) {
+                    lightSquareColor = new Color(0xF0D9B5);
+                    darkSquareColor = new Color(0xB58863);
+                } else {
+                    lightSquareColor = Color.LIGHT_GRAY;
+                    darkSquareColor = Color.DARK_GRAY;
+                }
+    
+                // Apply size
+                if (small.isSelected()) {
+                    setSize(480, 510);
+                } else if (medium.isSelected()) {
+                    setSize(600, 630);
+                } else {
+                    setSize(720, 750);
+                }
+    
+                drawBoard();
+                dialog.dispose();
+            }
+        });
+    
+        dialog.add(panel, BorderLayout.CENTER);
+        dialog.add(applyBtn, BorderLayout.SOUTH);
+        dialog.setVisible(true);
+    }
+    
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             @Override

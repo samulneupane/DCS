@@ -72,6 +72,12 @@ public class chessGame extends JFrame {
                 JPanel square = new JPanel(new BorderLayout());
                 square.setBackground(lightSquare ? Color.LIGHT_GRAY : Color.DARK_GRAY);
 
+                //if selected highlight
+                if (selectedPosition != null && selectedPosition.getRow() == row && selectedPosition.getColumn() == col) {
+                    square.setBackground(new Color(255, 255, 100)); // yellow highlight
+                }
+
+
                 Position pos = new Position(row, col);
                 Piece piece = board.getPiece(pos);
 

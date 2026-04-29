@@ -18,6 +18,8 @@ public class chessGame extends JFrame {
     private JMenuItem newGameItem;
 
     private Position selectedPosition = null;
+    private Color currentTurn = Color.WHITE;
+
 
     public chessGame() {
 

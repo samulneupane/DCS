@@ -81,7 +81,7 @@ public class chessGame extends JFrame {
                 Position pos = new Position(row, col);
                 Piece piece = board.getPiece(pos);
 
-                JLabel label = new JLabel(SwingConstants.CENTER);
+                JLabel label = new JLabel("",SwingConstants.CENTER);
                 label.setOpaque(false);
                 ImageIcon icon = getPieceImage(piece, 60);
                 if (icon != null) label.setIcon(icon);

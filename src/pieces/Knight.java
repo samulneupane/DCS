@@ -1,4 +1,4 @@
- package pieces;
+package pieces;
 
 import utils.Board;
 import utils.Position;
@@ -8,8 +8,9 @@ import java.awt.Color;
 
 public class Knight extends Piece {
 
-    public Knight(Color color, Position position) {
-        super(color, position);
+    public Knight(Color color, Position position , String symbol) {
+        super(color, position , symbol);
+        rank = "Knight";
     }
 
     @Override
@@ -17,22 +18,20 @@ public class Knight extends Piece {
         List<Position> moves = new ArrayList<>();
 
         int[][] offsets = {
-            {-2, -1}, {-2, 1},
-            {-1, -2}, {-1, 2},
-            {1, -2}, {1, 2},
-            {2, -1}, {2, 1}
+            { 2, 1}, { 2,-1}, {-2, 1}, {-2,-1},
+            { 1, 2}, { 1,-2}, {-1, 2}, {-1,-2}
         };
 
         int row = position.getRow();
         int col = position.getColumn();
 
-        for (int[] offset : offsets) {
-            Position p = new Position(row + offset[0], col + offset[1]);
+        for (int[] o : offsets) {
+            Position to = new Position(row + o[0], col + o[1]);
+            if (!board.isInsideBoard(to)) continue;
 
-            if (board.isInsideBoard(p)) {
-                if (board.getPiece(p) == null || board.getPiece(p).getColor() != color) {
-                    moves.add(p);
-                }
+            Piece target = board.getPiece(to);
+            if (target == null || !target.getColor().equals(this.color)) {
+                moves.add(to);
             }
         }
 
@@ -41,6 +40,6 @@ public class Knight extends Piece {
 
     @Override
     public String getSymbol() {
-        return color == Color.WHITE ? "wn" : "bn";
+        return Color.WHITE.equals(color) ? "wn" : "bn";
     }
 }

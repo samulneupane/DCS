@@ -6,11 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.awt.Color;
 
-
 public class Queen extends Piece {
 
-    public Queen(Color color, Position position) {
-        super(color, position);
+    public Queen(Color color, Position position, String rank) {
+        super(color, position, rank);
+        rank = "Queen";
     }
 
     @Override
@@ -19,6 +19,7 @@ public class Queen extends Piece {
 
         int row = position.getRow();
         int col = position.getColumn();
+
         int[][] directions = {
             {-1, 0}, {1, 0}, {0, -1}, {0, 1},
             {-1, -1}, {-1, 1}, {1, -1}, {1, 1}
@@ -30,15 +31,17 @@ public class Queen extends Piece {
 
             while (r >= 0 && r < 8 && c >= 0 && c < 8) {
                 Position p = new Position(r, c);
+                Piece target = board.getPiece(p);
 
-                if (board.getPiece(p) == null) {
+                if (target == null) {
                     moves.add(p);
                 } else {
-                    if (board.getPiece(p).getColor() != color) {
-                        moves.add(p);
+                    if (!target.getColor().equals(this.color)) {
+                        moves.add(p); // capture
                     }
-                    break;
+                    break; // blocked
                 }
+
                 r += dir[0];
                 c += dir[1];
             }
@@ -46,8 +49,9 @@ public class Queen extends Piece {
 
         return moves;
     }
-@Override
+
+    @Override
     public String getSymbol() {
-        return color == Color.WHITE ? "wq" : "bq";
+        return Color.WHITE.equals(color) ? "wq" : "bq";
     }
 }

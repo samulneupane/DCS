@@ -16,7 +16,6 @@ public class chessGame extends JFrame {
     private JMenuBar menuBar;
     private JMenu gameMenu;
     private JMenuItem newGameItem;
-    private boolean isAIMode = false;
 
 
     private Position selectedPosition = null;

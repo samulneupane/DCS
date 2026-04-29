@@ -125,4 +125,33 @@ public class Board {
     public boolean isInsideBoard(Position pos) {
         return isValidPosition(pos);
     }
+
+    // Check if the given color's king is in check
+public boolean isInCheck(Color color) {
+    // Find the king
+    Position kingPos = null;
+    for (int r = 0; r < 8; r++) {
+        for (int c = 0; c < 8; c++) {
+            Piece p = board[r][c];
+            if (p instanceof King && p.getColor().equals(color)) {
+                kingPos = new Position(r, c);
+            }
+        }
+    }
+    if (kingPos == null) return false;
+
+    // Check if any opponent piece can attack the king
+    Color opponent = color.equals(Color.WHITE) ? Color.BLACK : Color.WHITE;
+    for (int r = 0; r < 8; r++) {
+        for (int c = 0; c < 8; c++) {
+            Piece p = board[r][c];
+            if (p != null && p.getColor().equals(opponent)) {
+                if (p.possibleMoves(this).contains(kingPos)) {
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
+}
 }

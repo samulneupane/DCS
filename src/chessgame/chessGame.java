@@ -97,13 +97,16 @@ public class chessGame extends JFrame {
                         if (selectedPosition == null) {
                             if (clickedPiece != null && clickedPiece.getColor().equals(currentTurn)) {
                                 selectedPosition = clickedPos;
+                                drawBoard();
                             }
                         } else {
                             if (clickedPiece != null && clickedPiece.getColor().equals(currentTurn)) {
                                 // clicked own piece — switch selection
                                 selectedPosition = clickedPos;
+                                drawBoard();
                             } else {
                                 Piece selectedPiece = board.getPiece(selectedPosition);
+                                drawBoard();
                                 if (selectedPiece.possibleMoves(board).contains(clickedPos)) {
                                     board.movePiece(selectedPosition, clickedPos);
                                     selectedPosition = null;

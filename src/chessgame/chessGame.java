@@ -19,6 +19,7 @@ public class chessGame extends JFrame {
 
     private Position selectedPosition = null;
     private Color currentTurn = Color.WHITE;
+    private JLabel statusLabel;
 
 
     public chessGame() {
@@ -51,6 +52,9 @@ public class chessGame extends JFrame {
 
         // ===== BOARD PANEL =====
         boardPanel = new JPanel(new GridLayout(8, 8));
+        statusLabel = new JLabel("White's Turn", SwingConstants.CENTER);
+        statusLabel.setFont(new Font("SansSerif", Font.BOLD, 16));
+        add(statusLabel, BorderLayout.SOUTH);
         add(boardPanel, BorderLayout.CENTER);
 
         drawBoard();
@@ -88,7 +92,8 @@ public class chessGame extends JFrame {
                         } else {
                             board.movePiece(selectedPosition, clickedPos);
                             selectedPosition = null;
-                            currentTurn = currentTurn.equals(Color.WHITE) ? Color.BLACK : Color.WHITE;
+                            currentTurn = currentTurn.equals(Color.WHITE) ? Color.BLACK : Color.WHITE;  // already there
+                            statusLabel.setText(currentTurn.equals(Color.WHITE) ? "White's Turn" : "Black's Turn");  // add this
                             drawBoard();
                         }
                     }
